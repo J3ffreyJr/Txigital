@@ -1,0 +1,300 @@
+﻿<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Txigital</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<div id="confetti-c"></div>
+<div id="wflash"></div>
+
+<div class="frame" id="app">
+
+<!-- ───────── LEVEL-UP ───────── -->
+<div id="lvlup">
+  <div class="lvlup-icon">🏆</div>
+  <div class="lvlup-t" id="lvlup-t">Nível 4!</div>
+  <div class="lvlup-s" id="lvlup-s">Subiste de nível!<br>Continua assim!</div>
+  <button class="btn-r" style="margin-top:24px;max-width:200px;" onclick="closeLvlup()">Continuar →</button>
+</div>
+
+<!-- ══════════ SPLASH ══════════ -->
+<div class="scr on" id="s-splash">
+  <div class="splash-glow"></div>
+  <div style="text-align:center;margin-bottom:28px;">
+    <div class="logo-ic">💳</div>
+    <div class="logo-name">Txigital</div>
+    <div class="logo-tag">Educação Financeira · M-Pesa</div>
+  </div>
+  <p class="tagline">Aprende finanças jogando. Poupa com a tua comunidade. Cresce com o M-Pesa.</p>
+  <div style="width:100%;display:flex;flex-direction:column;gap:10px;">
+    <button class="btn-r" onclick="go('s-register')">🎮 Começar Agora</button>
+    <button class="btn-g" onclick="go('s-login')">Já tenho conta</button>
+  </div>
+  <div class="mpesa-pill">🔒 Integrado com <strong>M-Pesa</strong> · Seguro e Gratuito</div>
+</div>
+
+<!-- LOGIN -->
+<div class="scr" id="s-login">
+  <div class="reg-head"><div class="h1" style="font-size:26px;color:#fff;">Entrar</div><p style="font-size:13px;color:rgba(255,255,255,.6);margin-top:4px;">Confirma os teus dados para continuar</p></div>
+  <div class="reg-body">
+    <div class="inp-wrap"><div class="inp-label">Nome Completo</div><input class="inp" id="login-nome" type="text" placeholder="Ex: Ana Machava"></div>
+    <div class="inp-wrap"><div class="inp-label">N&uacute;mero de Celular</div><input class="inp" id="login-num" type="tel" inputmode="numeric" placeholder="84/85 xxx xxxx"></div>
+    <button class="btn-r" onclick="doLogin()">Continuar &rarr;</button>
+    <button class="btn-g" onclick="go('s-splash')">Voltar</button>
+  </div>
+</div>
+
+<!-- ══════════ REGISTER ══════════ -->
+<div class="scr" id="s-register">
+  <div class="reg-head">
+    <div class="h1" style="font-size:26px;color:#fff;">Criar Conta</div>
+    <p style="font-size:13px;color:rgba(255,255,255,.6);margin-top:4px;">Preenche os teus dados para começar</p>
+  </div>
+  <div class="reg-body">
+    <div class="inp-wrap"><div class="inp-label">Nome Completo</div><input class="inp" id="reg-nome" type="text" placeholder="Ex: Ana Machava"></div>
+    <div class="inp-wrap"><div class="inp-label">Número M-Pesa</div><input class="inp" id="reg-num" type="tel" inputmode="numeric" placeholder="84/85 xxx xxxx"></div>
+    <div class="inp-wrap"><div class="inp-label">Email (opcional)</div><input class="inp" id="reg-email" type="email" placeholder="email@exemplo.com"></div>
+    <div class="inp-wrap"><div class="inp-label">Data de Nascimento (opcional)</div><input class="inp" id="reg-dob" type="date" max=""></div>
+    <div class="inp-wrap">
+      <div class="inp-label">Província (opcional)</div>
+      <select class="inp" id="reg-prov">
+        <option value="">Selecionar...</option>
+        <option>Maputo</option><option>Gaza</option><option>Inhambane</option>
+        <option>Sofala</option><option>Manica</option><option>Tete</option>
+        <option>Zambézia</option><option>Nampula</option><option>Niassa</option><option>Cabo Delgado</option>
+      </select>
+    </div>
+    <button class="btn-r" onclick="doRegister()">Continuar →</button>
+  </div>
+</div>
+
+<!-- ══════════ AVATAR ══════════ -->
+<div class="scr" id="s-avatar">
+  <div class="av-head">
+    <div class="h1" style="font-size:24px;color:#fff;">Quem és tu?</div>
+    <p style="font-size:13px;color:rgba(255,255,255,.45);margin-top:3px;">Escolhe o teu personagem</p>
+  </div>
+  <div class="scroll" style="padding-bottom:20px;">
+    <div class="av-grid">
+      <div class="av-card" onclick="pickChar(this,'Ana','👩🏾','Vendedora no Mercado Xiquelene, Maputo')">
+        <span class="av-em">👩🏾</span>
+        <div class="av-name">Ana</div>
+        <div class="av-role">Vendedora no Mercado Xiquelene, Maputo</div>
+      </div>
+      <div class="av-card" onclick="pickChar(this,'Carlos','🚌','Motorista de Chapa, Maputo')">
+        <span class="av-em">🚌</span>
+        <div class="av-name">Carlos</div>
+        <div class="av-role">Motorista de Chapa, Maputo</div>
+      </div>
+      <div class="av-card" onclick="pickChar(this,'Fátima','👩‍🎓','Estudante Universitária, ISUTC')">
+        <span class="av-em">👩‍🎓</span>
+        <div class="av-name">Fátima</div>
+        <div class="av-role">Estudante Universitária, ISUTC</div>
+      </div>
+      <div class="av-card" onclick="pickChar(this,'João','🌾','Agricultor em Gaza')">
+        <span class="av-em">🌾</span>
+        <div class="av-name">João</div>
+        <div class="av-role">Agricultor em Gaza</div>
+      </div>
+    </div>
+    <div style="padding:0 16px 20px;">
+      <button class="btn-r" id="av-btn" style="opacity:.4;pointer-events:none;" onclick="startGame()">Começar Jornada →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ DASHBOARD ══════════ -->
+<div class="scr" id="s-dash">
+  <div class="dash-head">
+    <div class="dh-greet">Bem-vindo de volta 👋</div>
+    <div class="dh-name" id="dash-name">—</div>
+    <div class="dh-stats">
+      <div class="stat"><div class="stat-l">💰 Poupança</div><div class="stat-v" id="d-sav">—</div></div>
+      <div class="stat"><div class="stat-l">⭐ Nível</div><div class="stat-v" id="d-lvl">—</div><div class="stat-hint" id="d-lvl-hint">—</div></div>
+      <div class="stat"><div class="stat-l">🎯 XP</div><div class="stat-v" id="d-xp">—</div></div>
+    </div>
+  </div>
+  <div class="scroll">
+    <div class="dash-body">
+      <div><div class="sec">🔥 Missão de Hoje</div>
+        <div class="mcd" onclick="nav('s-missions')"><div class="mcd-ic" id="d-mis-ic">⚠️</div><div class="mcd-info"><div class="mcd-t" id="d-mis-t">—</div><div class="mcd-s" id="d-mis-s">—</div></div><div class="mcd-xp" id="d-mis-xp">—</div></div>
+      </div>
+      <div><div class="sec">📖 Academia</div>
+        <div class="mcd" style="border-left-color:#0066CC;" onclick="nav('s-academia')"><div class="mcd-ic">💡</div><div class="mcd-info"><div class="mcd-t" id="d-ac-t">—</div><div class="mcd-s">Academia · Literacia Financeira</div></div><div class="mcd-xp" style="background:#EEF4FF;color:#0066CC;">Novo</div></div>
+      </div>
+      <div><div class="sec">🏦 O Meu Xitique</div>
+        <div class="xi-dash" onclick="nav('s-xitique')">
+          <div style="font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;">Grupo Activo</div>
+          <div class="xi-dash-name" id="d-xi-name">Xitique</div>
+          <div class="xi-dash-amt" id="d-xi-amt">—</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:4px;" id="d-xi-sub">🔒 Bloqueado até fim do ciclo</div>
+          <div class="xi-prog"><div class="xi-pf" id="d-xi-prog" style="width:50%"></div></div>
+          <div style="font-size:11px;color:rgba(255,255,255,.35);margin-top:5px;" id="d-xi-turn">—</div>
+          <div class="mbr-row" id="d-mbr-row"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nav">
+    <div class="ni act" onclick="nav('s-dash')"><span class="ni-ic">🏠</span><span class="ni-lb">Início</span></div>
+    <div class="ni" onclick="nav('s-missions')"><span class="ni-ic">🎮</span><span class="ni-lb">Missões</span></div>
+    <div class="ni" onclick="nav('s-xitique')"><span class="ni-ic">🏦</span><span class="ni-lb">Xitique</span></div>
+    <div class="ni" onclick="nav('s-academia')"><span class="ni-ic">📚</span><span class="ni-lb">Academia</span></div>
+    <div class="ni" onclick="nav('s-profile')"><span class="ni-ic">👤</span><span class="ni-lb">Perfil</span></div>
+  </div>
+</div>
+
+<!-- ══════════ MISSIONS ══════════ -->
+<div class="scr" id="s-missions">
+  <div class="mis-head">
+    <div class="h1" style="font-size:26px;color:#fff;">🎮 Missões</div>
+    <p id="mis-sub">As tuas missões</p>
+  </div>
+  <div class="scroll"><div class="mis-list" id="mis-list"></div></div>
+  <div class="nav">
+    <div class="ni" onclick="nav('s-dash')"><span class="ni-ic">🏠</span><span class="ni-lb">Início</span></div>
+    <div class="ni act"><span class="ni-ic">🎮</span><span class="ni-lb">Missões</span></div>
+    <div class="ni" onclick="nav('s-xitique')"><span class="ni-ic">🏦</span><span class="ni-lb">Xitique</span></div>
+    <div class="ni" onclick="nav('s-academia')"><span class="ni-ic">📚</span><span class="ni-lb">Academia</span></div>
+    <div class="ni" onclick="nav('s-profile')"><span class="ni-ic">👤</span><span class="ni-lb">Perfil</span></div>
+  </div>
+</div>
+
+<!-- ══════════ XITIQUE ══════════ -->
+<div class="scr" id="s-xitique">
+  <div class="xi-head">
+    <div class="h1" style="font-size:24px;color:#fff;">🏦 Xitique Digital</div>
+    <p>Poupança colectiva segura via M-Pesa</p>
+  </div>
+  <div class="scroll"><div class="xi-body" id="xi-body"></div></div>
+  <div class="nav xitique-nav">
+    <div class="ni" onclick="nav('s-dash')"><span class="ni-ic">🏠</span><span class="ni-lb">Início</span></div>
+    <div class="ni" onclick="nav('s-missions')"><span class="ni-ic">🎮</span><span class="ni-lb">Missões</span></div>
+    <div class="ni act"><span class="ni-ic">🏦</span><span class="ni-lb">Xitique</span></div>
+    <div class="ni" onclick="nav('s-academia')"><span class="ni-ic">📚</span><span class="ni-lb">Academia</span></div>
+    <div class="ni" onclick="nav('s-profile')"><span class="ni-ic">👤</span><span class="ni-lb">Perfil</span></div>
+  </div>
+</div>
+
+<!-- ══════════ ACADEMIA ══════════ -->
+<div class="scr" id="s-academia">
+  <div class="ac-head">
+    <div class="h1" style="font-size:26px;color:#fff;">📚 Academia</div>
+    <p id="ac-sub">Lições para a tua realidade</p>
+  </div>
+  <div class="theme-row" id="theme-row"></div>
+  <div class="scroll" style="padding-top:8px;"><div class="qlist" id="qlist"></div></div>
+  <div class="nav">
+    <div class="ni" onclick="nav('s-dash')"><span class="ni-ic">🏠</span><span class="ni-lb">Início</span></div>
+    <div class="ni" onclick="nav('s-missions')"><span class="ni-ic">🎮</span><span class="ni-lb">Missões</span></div>
+    <div class="ni" onclick="nav('s-xitique')"><span class="ni-ic">🏦</span><span class="ni-lb">Xitique</span></div>
+    <div class="ni act"><span class="ni-ic">📚</span><span class="ni-lb">Academia</span></div>
+    <div class="ni" onclick="nav('s-profile')"><span class="ni-ic">👤</span><span class="ni-lb">Perfil</span></div>
+  </div>
+</div>
+
+<!-- ══════════ QUIZ ══════════ -->
+<div class="scr" id="s-quiz">
+  <div class="quiz-top">
+    <button style="background:rgba(255,255,255,.1);border:none;color:#fff;border-radius:50%;width:34px;height:34px;font-size:16px;cursor:pointer;margin-bottom:10px;" onclick="nav('s-academia')">←</button>
+    <div class="qprog-bar"><div class="qprog-fill" id="qprog" style="width:10%"></div></div>
+    <div class="quiz-counter" id="qctr">Pergunta 1</div>
+  </div>
+  <div class="quiz-body" id="quiz-body"></div>
+</div>
+
+<!-- ══════════ PROFILE ══════════ -->
+<div class="scr" id="s-profile">
+  <div class="prof-head">
+    <div class="prof-av-wrap">
+      <div class="prof-av" id="prof-av">👩🏾</div>
+      <div class="prof-edit" onclick="alert('Toca para alterar a foto de perfil')">✏️</div>
+    </div>
+    <div class="prof-name" id="prof-name">—</div>
+    <div class="prof-num" id="prof-num">—</div>
+    <div class="prof-lvl" id="prof-lvl">⭐ Nível 1 · 0 XP</div>
+  </div>
+  <div class="scroll">
+    <div class="prof-body">
+      <div class="prof-stats">
+        <div class="psc"><div class="psc-v" id="ps-mis">0</div><div class="psc-l">Missões</div></div>
+        <div class="psc"><div class="psc-v" id="ps-xp">0</div><div class="psc-l">XP Total</div></div>
+        <div class="psc"><div class="psc-v" id="ps-bdg">0</div><div class="psc-l">Badges</div></div>
+      </div>
+      <div class="prof-sec">
+        <div class="prof-sec-lbl">Informações Pessoais</div>
+        <div class="prof-row" onclick="editField('nome')"><span class="pr-ic">👤</span><div class="pr-inf"><div class="pr-lbl">Nome completo</div><div class="pr-val" id="p-nome">—</div></div><span class="pr-arr">›</span></div>
+        <div class="prof-row" onclick="editField('num')"><span class="pr-ic">📱</span><div class="pr-inf"><div class="pr-lbl">Número M-Pesa</div><div class="pr-val" id="p-num">—</div></div><span class="pr-arr">›</span></div>
+        <div class="prof-row" onclick="editField('email')"><span class="pr-ic">📧</span><div class="pr-inf"><div class="pr-lbl">Email</div><div class="pr-val" id="p-email">—</div></div><span class="pr-arr">›</span></div>
+        <div class="prof-row" onclick="editField('dob')"><span class="pr-ic">🎂</span><div class="pr-inf"><div class="pr-lbl">Data de Nascimento</div><div class="pr-val" id="p-dob">—</div></div><span class="pr-arr">›</span></div>
+        <div class="prof-row" onclick="editField('prov')"><span class="pr-ic">🏠</span><div class="pr-inf"><div class="pr-lbl">Província</div><div class="pr-val" id="p-prov">—</div></div><span class="pr-arr">›</span></div>
+      </div>
+      <div class="prof-sec">
+        <div class="prof-sec-lbl">Conta M-Pesa</div>
+        <div class="prof-row"><span class="pr-ic">💳</span><div class="pr-inf"><div class="pr-lbl">Saldo M-Pesa</div><div class="pr-val" id="p-sav">—</div></div><span class="pr-arr">›</span></div>
+        <div class="prof-row"><span class="pr-ic">🔐</span><div class="pr-inf"><div class="pr-lbl">Alterar PIN</div><div class="pr-val">Última alteração: 3 meses atrás</div></div><span class="pr-arr">›</span></div>
+        <div class="prof-row"><span class="pr-ic">📜</span><div class="pr-inf"><div class="pr-lbl">Histórico de Transações</div><div class="pr-val">Ver todas as movimentações</div></div><span class="pr-arr">›</span></div>
+        <div class="prof-row"><span class="pr-ic">📋</span><div class="pr-inf"><div class="pr-lbl">Extrato Mensal</div><div class="pr-val">Descarregar PDF</div></div><span class="pr-arr">›</span></div>
+      </div>
+      <div class="prof-sec">
+        <div class="prof-sec-lbl">Preferências</div>
+        <div class="prof-row"><span class="pr-ic">&#127757;</span><div class="pr-inf"><div class="pr-lbl">Idioma</div><div class="pr-val" id="p-lang">Português</div></div></div><div class="pref-actions"><button class="pref-chip" id="lang-pt" onclick="setLanguage('pt')">Português</button><button class="pref-chip" id="lang-en" onclick="setLanguage('en')">English</button></div>
+        <div class="prof-row"><span class="pr-ic">🔔</span><div class="pr-inf"><div class="pr-lbl">Notificações</div><div class="pr-val">Activadas</div></div><span class="pr-arr">›</span></div>
+        <div class="prof-row"><span class="pr-ic">&#127769;</span><div class="pr-inf"><div class="pr-lbl">Tema</div><div class="pr-val" id="p-theme">Automático</div></div></div><div class="pref-actions"><button class="pref-chip" id="theme-light" onclick="setThemeMode('light')">Claro</button><button class="pref-chip" id="theme-dark" onclick="setThemeMode('dark')">Escuro</button><button class="pref-chip" id="theme-auto" onclick="setThemeMode('auto')">Auto</button></div>
+        <div class="prof-row"><span class="pr-ic">🔒</span><div class="pr-inf"><div class="pr-lbl">Privacidade e Segurança</div><div class="pr-val">Gerir permissões</div></div><span class="pr-arr">›</span></div>
+      </div>
+      <div class="prof-sec">
+        <div class="prof-sec-lbl">Conquistas</div>
+        <div class="prof-row" onclick="showBadges()"><span class="pr-ic">🏆</span><div class="pr-inf"><div class="pr-lbl">Os Meus Badges</div><div class="pr-val" id="p-bdg">0 badges conquistados</div></div><span class="pr-arr">›</span></div>
+        <div class="prof-row" onclick="showStats()"><span class="pr-ic">📊</span><div class="pr-inf"><div class="pr-lbl">Estatísticas</div><div class="pr-val" id="p-stats">0 missões · 0% acertos</div></div><span class="pr-arr">›</span></div>
+        <div class="prof-row"><span class="pr-ic">🎓</span><div class="pr-inf"><div class="pr-lbl">Certificado de Literacia</div><div class="pr-val">Em progresso</div></div><span class="pr-arr">›</span></div>
+      </div>
+      <div class="prof-sec">
+        <div class="prof-sec-lbl">Personagem RPG</div>
+        <div class="prof-row"><span class="pr-ic" id="p-char-ic">👩🏾</span><div class="pr-inf"><div class="pr-lbl" id="p-char-name">—</div><div class="pr-val" id="p-char-role">—</div></div><span class="pr-arr" onclick="go('s-avatar')" style="cursor:pointer;color:var(--red);">Trocar</span></div>
+        <div class="prof-row"><span class="pr-ic">⭐</span><div class="pr-inf"><div class="pr-lbl">Nível actual</div><div class="pr-val" id="p-lvl-desc">—</div></div></div>
+      </div>
+      <div class="prof-sec">
+        <div class="prof-sec-lbl">Suporte</div>
+        <div class="prof-row"><span class="pr-ic">❓</span><div class="pr-inf"><div class="pr-lbl">Ajuda e FAQ</div></div><span class="pr-arr">›</span></div>
+        <div class="prof-row" onclick="location.href='tel:84111'"><span class="pr-ic">&#128222;</span><div class="pr-inf"><div class="pr-lbl">Linha do Cliente/M-Pesa</div><div class="pr-val">84111 &middot; Vodacom/M-Pesa Mo&ccedil;ambique</div></div><span class="pr-arr">&rsaquo;</span></div>
+        <div class="prof-row" onclick="logout()" style="color:var(--red);"><span class="pr-ic">🚪</span><div class="pr-inf"><div class="pr-lbl" style="color:var(--red);">Terminar Sessão</div></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="nav profile-nav">
+    <div class="ni" onclick="nav('s-dash')"><span class="ni-ic">🏠</span><span class="ni-lb">Início</span></div>
+    <div class="ni" onclick="nav('s-missions')"><span class="ni-ic">🎮</span><span class="ni-lb">Missões</span></div>
+    <div class="ni" onclick="nav('s-xitique')"><span class="ni-ic">🏦</span><span class="ni-lb">Xitique</span></div>
+    <div class="ni" onclick="nav('s-academia')"><span class="ni-ic">📚</span><span class="ni-lb">Academia</span></div>
+    <div class="ni act"><span class="ni-ic">👤</span><span class="ni-lb">Perfil</span></div>
+  </div>
+</div>
+
+</div><!-- end frame -->
+
+<script src="assets/js/models/model.js"></script>
+<script src="assets/js/views/view.js"></script>
+<script src="assets/js/controllers/controller.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

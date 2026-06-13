@@ -1,0 +1,1619 @@
+﻿<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Txigital</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#E2001A; --red-d:#A50013; --red-l:#FF1A33;
+  --gold:#F5A623; --gold-l:#FFD166;
+  --green:#00A651; --green-d:#007A3D;
+  --dark:#0D0005; --dark2:#1A0008; --dark3:#2A000E;
+  --white:#fff; --gray:#888; --light:#F5F5F5;
+  --r:18px; --nav-h:70px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;}
+html,body{width:100%;height:100%;overflow:hidden;background:#111;}
+body{font-family:'Nunito',sans-serif;display:flex;align-items:center;justify-content:center;}
+
+
+/* ── FRAME ── */
+.frame{
+  width:390px;height:820px;background:var(--dark);
+  border-radius:44px;border:3px solid #2A0008;overflow:hidden;
+  position:relative;
+  box-shadow:0 0 80px rgba(226,0,26,.4),0 30px 100px rgba(0,0,0,.8);
+}
+@media(max-width:420px){
+  .frame{width:100vw;height:100dvh;border-radius:0;border:none;}
+  body{background:var(--dark);}
+}
+
+/* ── SCREENS ── */
+.scr{position:absolute;inset:0;display:none;flex-direction:column;overflow:hidden;}
+.scr.on{display:flex;animation:si .3s cubic-bezier(.34,1.56,.64,1);}
+@keyframes si{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+
+.scroll{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:80px;}
+.scroll::-webkit-scrollbar{display:none;}
+
+/* ── BOTTOM NAV ── */
+.nav{
+  position:absolute;bottom:0;left:10px;right:10px;height:var(--nav-h);
+  background:rgba(255,255,255,.96);
+  border:1.5px solid rgba(226,0,26,.28);border-radius:22px 22px 0 0;
+  box-shadow:0 -8px 26px rgba(226,0,26,.12);
+  display:flex;align-items:center;z-index:50;overflow:hidden;
+}
+.ni{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:8px 0;}
+.ni-ic{font-size:22px;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.ni-lb{font-size:10px;font-weight:800;color:#8a8a8a;transition:color .2s;}
+.ni.act .ni-lb{color:var(--red);}
+.ni.act .ni-ic,.ni:hover .ni-ic{transform:translateY(-5px) scale(1.2);filter:drop-shadow(0 4px 8px rgba(226,0,26,.35));}
+.ni-dot{width:5px;height:5px;background:var(--red-l);border-radius:50%;position:absolute;top:6px;}
+
+/* ── BUTTONS ── */
+.btn-r{width:100%;background:linear-gradient(135deg,var(--red-l),var(--red-d));color:#fff;border:none;border-radius:50px;padding:15px;font:800 16px 'Nunito',sans-serif;cursor:pointer;box-shadow:0 6px 20px rgba(226,0,26,.4);transition:all .2s;}
+.btn-r:active{transform:scale(.97);}
+.btn-g{width:100%;background:#fff;color:var(--red);border:2px solid #FFD3D8;border-radius:50px;padding:13px;font:700 15px 'Nunito',sans-serif;cursor:pointer;transition:all .2s;}
+.btn-g:hover{border-color:var(--red);color:var(--red-l);}
+
+/* ── CARDS ── */
+.card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:var(--r);padding:16px;transition:all .22s;cursor:pointer;position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(226,0,26,.1),transparent);opacity:0;transition:opacity .2s;}
+.card:hover::before,.card:active::before{opacity:1;}
+.card:hover{transform:translateY(-3px);border-color:rgba(226,0,26,.3);box-shadow:0 8px 24px rgba(226,0,26,.15);}
+
+/* ── TYPOGRAPHY ── */
+.h1{font-family:'Baloo 2',cursive;font-weight:900;}
+.sec{font-size:11px;font-weight:800;color:#777;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;}
+
+/* ══════════════════════════════════════
+   SPLASH
+══════════════════════════════════════ */
+#s-splash{background:#fff;align-items:center;justify-content:center;gap:0;padding:40px 28px;color:#111;}
+.splash-glow{position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:280px;height:280px;background:radial-gradient(circle,rgba(226,0,26,.12),transparent 70%);pointer-events:none;}
+.logo-ic{width:96px;height:96px;background:linear-gradient(135deg,var(--red-l),var(--red-d));border-radius:28px;display:flex;align-items:center;justify-content:center;font-size:48px;margin:0 auto 18px;box-shadow:0 12px 40px rgba(226,0,26,.5),inset 0 1px 0 rgba(255,255,255,.2);animation:float 3s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.logo-name{font-family:'Baloo 2',cursive;font-size:54px;font-weight:900;background:linear-gradient(135deg,var(--red) 30%,var(--red-d));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;letter-spacing:0;}
+.logo-tag{font-size:11px;font-weight:700;letter-spacing:3px;color:#777;text-transform:uppercase;margin-top:6px;}
+.tagline{font-size:14px;color:#4b4b4b;text-align:center;line-height:1.7;max-width:270px;margin:24px 0 28px;}
+.mpesa-pill{display:flex;align-items:center;justify-content:center;gap:6px;background:#FFF3F4;border:1px solid #FFD3D8;border-radius:50px;padding:10px 20px;color:#555;font-size:12px;font-weight:600;margin-top:14px;}
+.mpesa-pill strong{color:var(--red);}
+
+/* ══════════════════════════════════════
+   REGISTER
+══════════════════════════════════════ */
+#s-register{background:linear-gradient(160deg,#1A0005,#0D0005);}
+.reg-head{background:linear-gradient(135deg,var(--red-d),var(--red));padding:52px 24px 24px;flex-shrink:0;}
+.reg-head h1{font-family:'Baloo 2',cursive;font-size:26px;font-weight:900;color:#fff;}
+.reg-head p{font-size:13px;color:rgba(255,255,255,.6);margin-top:4px;}
+.reg-body{padding:20px;display:flex;flex-direction:column;gap:14px;overflow-y:auto;flex:1;padding-bottom:30px;}
+.inp-wrap{display:flex;flex-direction:column;gap:6px;}
+.inp-label{font-size:12px;font-weight:800;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;}
+.inp{width:100%;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.12);border-radius:14px;padding:14px 16px;font:700 14px 'Nunito',sans-serif;color:#fff;outline:none;transition:border-color .2s;}
+.inp:focus{border-color:var(--red-l);}
+.inp::placeholder{color:rgba(255,255,255,.25);}
+select.inp option{background:#1A0005;color:#fff;}
+
+/* ══════════════════════════════════════
+   AVATAR
+══════════════════════════════════════ */
+#s-avatar{background:linear-gradient(160deg,#1A0005,#0D0005);}
+.av-head{background:linear-gradient(135deg,var(--red-d),var(--red));padding:52px 24px 22px;flex-shrink:0;}
+.av-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px;}
+.av-card{background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.08);border-radius:20px;padding:18px 12px;text-align:center;cursor:pointer;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.av-card:hover,.av-card.sel{border-color:var(--red-l);background:rgba(226,0,26,.12);box-shadow:0 6px 20px rgba(226,0,26,.25);transform:translateY(-3px);}
+.av-em{font-size:42px;margin-bottom:10px;display:block;transition:transform .3s;}
+.av-card:hover .av-em,.av-card.sel .av-em{transform:scale(1.15) rotate(-5deg);}
+.av-name{font-size:15px;font-weight:900;color:#fff;}
+.av-role{font-size:11px;color:rgba(255,255,255,.4);margin-top:4px;line-height:1.4;}
+.av-foot{padding:16px;flex-shrink:0;}
+
+/* ══════════════════════════════════════
+   DASHBOARD
+══════════════════════════════════════ */
+#s-dash{background:var(--light);}
+.dash-head{background:linear-gradient(135deg,var(--red-d) 0%,var(--red) 55%,var(--red-l) 100%);padding:52px 24px 28px;position:relative;overflow:hidden;flex-shrink:0;}
+.dash-head::before{content:'';position:absolute;top:-60px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.08);}
+.dash-head::after{content:'';position:absolute;bottom:-40px;left:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.05);}
+.dh-greet{font-size:13px;color:rgba(255,255,255,.75);margin-bottom:4px;position:relative;}
+.dh-name{font-family:'Baloo 2',cursive;font-size:28px;font-weight:900;color:#fff;position:relative;}
+.dh-stats{display:flex;gap:8px;margin-top:18px;position:relative;}
+.stat{flex:1;background:rgba(255,255,255,.2);backdrop-filter:blur(10px);border-radius:14px;padding:11px;border:1px solid rgba(255,255,255,.2);}
+.stat-l{font-size:10px;color:rgba(255,255,255,.7);letter-spacing:.5px;text-transform:uppercase;}
+.stat-v{font-size:19px;font-weight:900;color:#fff;margin-top:2px;}
+.stat-hint{font-size:9px;color:rgba(255,255,255,.5);margin-top:1px;}
+.dash-body{padding:16px;display:flex;flex-direction:column;gap:14px;}
+/* mission card */
+.mcd{background:#fff;border-radius:18px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,.06);cursor:pointer;transition:all .22s;border-left:4px solid var(--red);display:flex;align-items:center;gap:12px;}
+.mcd:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(226,0,26,.1);}
+.mcd-ic{font-size:34px;flex-shrink:0;}
+.mcd-info{flex:1;}
+.mcd-t{font-size:15px;font-weight:800;color:#111;}
+.mcd-s{font-size:12px;color:#888;margin-top:2px;}
+.mcd-xp{background:#FFF0F1;color:var(--red);font-size:11px;font-weight:800;padding:4px 10px;border-radius:50px;flex-shrink:0;}
+/* xitique dash card */
+.xi-dash{background:linear-gradient(135deg,#1A0005,#2A000A);border-radius:18px;padding:18px;cursor:pointer;border:1px solid rgba(226,0,26,.2);transition:all .22s;}
+.xi-dash:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(226,0,26,.2);}
+.xi-dash-name{font-family:'Baloo 2',cursive;font-size:20px;font-weight:800;color:#fff;margin-top:4px;}
+.xi-dash-amt{font-size:30px;font-weight:900;color:var(--gold);margin-top:10px;}
+.xi-prog{background:rgba(255,255,255,.1);border-radius:50px;height:6px;margin-top:12px;}
+.xi-pf{background:linear-gradient(90deg,var(--gold),var(--gold-l));height:100%;border-radius:50px;}
+.mbr-row{display:flex;margin-top:12px;align-items:center;}
+.mbr{width:28px;height:28px;border-radius:50%;font-size:14px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.1);border:2px solid #1A0005;margin-left:-5px;}
+.mbr:first-child{margin-left:0;}
+
+/* ══════════════════════════════════════
+   MISSIONS
+══════════════════════════════════════ */
+#s-missions{background:var(--light);}
+.mis-head{background:linear-gradient(135deg,var(--red-d),var(--red));padding:52px 24px 22px;flex-shrink:0;}
+.mis-head h1{font-family:'Baloo 2',cursive;font-size:26px;font-weight:900;color:#fff;}
+.mis-head p{font-size:13px;color:rgba(255,255,255,.6);margin-top:2px;}
+.mis-list{padding:14px;display:flex;flex-direction:column;gap:10px;}
+.mi{background:#fff;border-radius:18px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.05);cursor:pointer;transition:all .22s;display:flex;align-items:center;gap:12px;border:2px solid transparent;}
+.mi:hover{border-color:var(--red);transform:translateY(-3px);box-shadow:0 8px 20px rgba(226,0,26,.1);}
+.mi.done{border-color:#00A651;background:#F0FFF6;opacity:.8;}
+.mi-ic{font-size:36px;flex-shrink:0;transition:transform .3s;}
+.mi:hover .mi-ic{transform:scale(1.15) rotate(-8deg);}
+.mi-body{flex:1;}
+.mi-t{font-size:14px;font-weight:800;color:#111;}
+.mi.done .mi-t{color:#666;}
+.mi-s{font-size:12px;color:#888;margin-top:3px;}
+.mi-foot{display:flex;gap:8px;align-items:center;margin-top:8px;}
+.mi-xp{background:#FFF0F1;color:var(--red);font-size:11px;font-weight:800;padding:3px 9px;border-radius:50px;}
+.mi.done .mi-xp{background:#E8FFF2;color:var(--green);}
+.mi-diff{font-size:10px;color:#aaa;font-weight:700;}
+.mi-done-badge{background:#00A651;color:#fff;font-size:10px;font-weight:800;padding:3px 9px;border-radius:50px;display:none;}
+.mi.done .mi-done-badge{display:block;}
+
+/* ══════════════════════════════════════
+   XITIQUE
+══════════════════════════════════════ */
+#s-xitique{background:var(--light);}
+.xi-head{background:linear-gradient(135deg,var(--red-d),var(--red));padding:52px 24px 22px;flex-shrink:0;}
+.xi-head h1{font-family:'Baloo 2',cursive;font-size:24px;font-weight:900;color:#fff;}
+.xi-head p{font-size:13px;color:rgba(255,255,255,.75);margin-top:2px;}
+.xi-body{padding:14px;display:flex;flex-direction:column;gap:12px;}
+.xi-total{background:linear-gradient(135deg,var(--gold),#E08A00);border-radius:20px;padding:20px;text-align:center;color:#fff;}
+.xi-total-lbl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;opacity:.8;}
+.xi-total-amt{font-family:'Baloo 2',cursive;font-size:40px;font-weight:900;margin-top:4px;}
+.xi-total-sub{font-size:12px;opacity:.8;margin-top:4px;}
+.xi-lock{display:inline-flex;align-items:center;gap:6px;background:rgba(0,0,0,.2);border-radius:50px;padding:6px 14px;font-size:12px;font-weight:700;color:#fff;margin-top:10px;}
+.xi-gbox{background:#fff;border:1px solid rgba(226,0,26,.1);border-radius:18px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,.05);}
+.xi-gtitle{font-family:'Baloo 2',cursive;font-size:18px;font-weight:800;color:#111;margin-bottom:12px;}
+.xi-prog2{background:#F0F0F0;border-radius:50px;height:7px;}
+.xi-pf2{background:linear-gradient(90deg,var(--gold),var(--gold-l));height:100%;border-radius:50px;}
+.xi-mr{display:flex;align-items:center;gap:10px;background:#FAFAFA;border-radius:13px;padding:11px 13px;margin-bottom:8px;border:1px solid #eee;transition:all .2s;}
+.xi-mr:hover{background:rgba(226,0,26,.07);border-color:rgba(226,0,26,.2);}
+.xi-mr-em{font-size:24px;}
+.xi-mr-info{flex:1;}
+.xi-mr-name{font-size:13px;font-weight:800;color:#111;}
+.xi-mr-amt{font-size:12px;color:var(--gold);font-weight:700;margin-top:1px;}
+.xi-mr-st{font-size:11px;margin-top:1px;}
+.paid{color:#00CC66;} .late{color:#FF6B6B;} .nxt{color:#66B2FF;}
+.bdg{font-size:10px;font-weight:800;padding:3px 9px;border-radius:50px;}
+.bdg-paid{background:rgba(0,204,102,.15);color:#00CC66;}
+.bdg-late{background:rgba(255,107,107,.15);color:#FF6B6B;}
+.bdg-nxt{background:rgba(102,178,255,.15);color:#66B2FF;}
+.bdg-wait{background:#F0F0F0;color:#777;}
+.xi-info{background:#FFF8E8;border:1px solid rgba(245,166,35,.35);border-radius:13px;padding:13px;display:flex;gap:10px;}
+.xi-info p{font-size:12px;color:#5f4b18;line-height:1.6;}
+body.theme-dark #s-xitique{background:var(--dark);}
+body.theme-dark .xi-head{background:linear-gradient(135deg,var(--dark3),var(--dark2));}
+body.theme-dark .xi-head p{color:rgba(255,255,255,.4);}
+body.theme-dark .xi-gbox{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.08);box-shadow:none;}
+body.theme-dark .xi-gtitle,body.theme-dark .xi-mr-name{color:#fff;}
+body.theme-dark .xi-prog2{background:rgba(255,255,255,.1);}
+body.theme-dark .xi-mr{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.05);}
+body.theme-dark .bdg-wait{background:rgba(255,255,255,.08);color:rgba(255,255,255,.4);}
+body.theme-dark .xi-info{background:rgba(245,166,35,.1);border-color:rgba(245,166,35,.3);}
+body.theme-dark .xi-info p{color:rgba(255,255,255,.65);}
+.xitique-nav{background:linear-gradient(0deg,rgba(245,245,245,.98) 70%,transparent);}
+body.theme-dark .xitique-nav{background:linear-gradient(0deg,rgba(13,0,5,.98) 70%,transparent);}
+
+/* ══════════════════════════════════════
+   ACADEMIA
+══════════════════════════════════════ */
+#s-academia{background:var(--light);}
+.ac-head{background:linear-gradient(135deg,var(--red-d),var(--red));padding:52px 24px 22px;flex-shrink:0;}
+.ac-head h1{font-family:'Baloo 2',cursive;font-size:26px;font-weight:900;color:#fff;}
+.ac-head p{font-size:13px;color:rgba(255,255,255,.6);margin-top:2px;}
+.theme-row{display:flex;gap:8px;padding:14px 14px 0;overflow-x:auto;flex-shrink:0;}
+.theme-row::-webkit-scrollbar{display:none;}
+.tbtn{flex-shrink:0;background:#fff;border:2px solid #e5e5e5;border-radius:50px;padding:8px 14px;font:800 12px 'Nunito',sans-serif;color:#555;cursor:pointer;white-space:nowrap;transition:all .2s;}
+.tbtn.sel{background:var(--red);border-color:var(--red);color:#fff;}
+.qlist{padding:12px;display:flex;flex-direction:column;gap:10px;}
+.qcard{background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.05);cursor:pointer;transition:all .22s;border:2px solid transparent;}
+.qcard:hover{border-color:var(--red);transform:translateY(-2px);box-shadow:0 6px 18px rgba(226,0,26,.1);}
+.qcard.done{border-color:var(--green);background:#F0FFF6;opacity:.8;}
+.qcard-theme{font-size:10px;font-weight:800;color:var(--red);text-transform:uppercase;letter-spacing:1px;}
+.qcard.done .qcard-theme{color:var(--green);}
+.qcard-q{font-size:14px;font-weight:700;color:#111;margin-top:4px;line-height:1.4;}
+.qcard.done .qcard-q{color:#555;}
+.qcard-foot{display:flex;gap:8px;align-items:center;margin-top:10px;}
+.qcard-xp{background:#FFF0F1;color:var(--red);font-size:11px;font-weight:800;padding:3px 9px;border-radius:50px;}
+.qcard.done .qcard-xp{background:#E8FFF2;color:var(--green);}
+.qcard-done-badge{background:var(--green);color:#fff;font-size:10px;font-weight:800;padding:3px 9px;border-radius:50px;display:none;}
+.qcard.done .qcard-done-badge{display:block;}
+.qcard-lvl{font-size:11px;color:#aaa;font-weight:700;}
+
+/* ══════════════════════════════════════
+   QUIZ
+══════════════════════════════════════ */
+#s-quiz{background:linear-gradient(160deg,#1A0005,#0D0005);}
+.quiz-top{background:linear-gradient(135deg,var(--dark3),var(--dark2));padding:52px 20px 16px;flex-shrink:0;}
+.qprog-bar{height:4px;background:rgba(255,255,255,.1);border-radius:50px;}
+.qprog-fill{height:100%;background:var(--red-l);border-radius:50px;transition:width .4s ease;}
+.quiz-counter{font-size:12px;color:rgba(255,255,255,.4);margin-top:8px;}
+.quiz-body{padding:16px;display:flex;flex-direction:column;gap:12px;overflow-y:auto;flex:1;padding-bottom:20px;}
+.quiz-scen{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:18px;}
+.quiz-av-line{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.quiz-av-em{font-size:30px;}
+.quiz-av-name{font-size:13px;font-weight:800;color:var(--red-l);}
+.quiz-q{font-size:15px;font-weight:700;color:#fff;line-height:1.6;}
+.choice{background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.1);border-radius:13px;padding:14px 16px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:12px;font-family:'Nunito',sans-serif;text-align:left;}
+.choice:hover{border-color:var(--red-l);background:rgba(226,0,26,.12);transform:translateX(4px);}
+.choice-em{font-size:22px;flex-shrink:0;}
+.choice-t{font-size:13px;font-weight:700;color:#fff;line-height:1.4;}
+.choice.c-best{border-color:#00CC66 !important;background:rgba(0,204,102,.15) !important;}
+.choice.c-mid{border-color:var(--gold) !important;background:rgba(245,166,35,.15) !important;}
+.choice.c-bad{border-color:#FF6B6B !important;background:rgba(255,107,107,.15) !important;}
+/* after-answer panel */
+.after-panel{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:16px;display:none;}
+.after-panel.show{display:block;}
+.after-tip-lbl{font-size:10px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;}
+.after-tip-txt{font-size:13px;color:rgba(255,255,255,.8);line-height:1.6;}
+.after-xp{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border-radius:50px;padding:7px 16px;font-size:14px;font-weight:800;color:#fff;margin:10px 0;}
+.after-xp span{color:var(--gold);}
+.after-best{background:rgba(0,204,102,.1);border:1px solid rgba(0,204,102,.3);border-radius:12px;padding:12px;margin-top:8px;font-size:12px;color:rgba(255,255,255,.75);line-height:1.6;}
+.after-best strong{color:#00CC66;}
+.after-btns{display:flex;gap:10px;margin-top:12px;}
+.ab-btn{flex:1;border:none;border-radius:50px;padding:12px;font:800 13px 'Nunito',sans-serif;cursor:pointer;transition:all .2s;}
+.ab-home{background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);}
+.ab-next{background:linear-gradient(135deg,var(--red-l),var(--red-d));color:#fff;box-shadow:0 4px 14px rgba(226,0,26,.35);}
+
+/* ══════════════════════════════════════
+   PROFILE
+══════════════════════════════════════ */
+#s-profile{background:var(--light);}
+.prof-head{background:linear-gradient(135deg,var(--red-d),var(--red));padding:52px 24px 36px;text-align:center;position:relative;}
+.prof-av-wrap{position:relative;display:inline-block;margin-bottom:12px;}
+.prof-av{width:88px;height:88px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:46px;border:3px solid rgba(255,255,255,.4);margin:0 auto;}
+.prof-edit{position:absolute;bottom:0;right:0;width:28px;height:28px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;border:2px solid #fff;}
+.prof-name{font-family:'Baloo 2',cursive;font-size:24px;font-weight:900;color:#fff;}
+.prof-num{font-size:14px;color:rgba(255,255,255,.65);margin-top:3px;}
+.prof-lvl{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);border-radius:50px;padding:6px 16px;color:#fff;font-size:13px;font-weight:700;margin-top:10px;}
+.prof-body{padding:14px;display:flex;flex-direction:column;gap:10px;}
+.prof-stats{display:flex;gap:10px;}
+.psc{flex:1;background:#fff;border-radius:16px;padding:14px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05);}
+.psc-v{font-family:'Baloo 2',cursive;font-size:24px;font-weight:900;color:var(--red);}
+.psc-l{font-size:11px;color:#888;font-weight:700;margin-top:2px;}
+.prof-sec{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.05);}
+.prof-sec-lbl{font-size:11px;font-weight:800;color:#999;text-transform:uppercase;letter-spacing:1.5px;padding:13px 16px 8px;border-bottom:1px solid #f0f0f0;}
+.prof-row{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid #f8f8f8;cursor:pointer;transition:background .15s;}
+.prof-row:last-child{border-bottom:none;}
+.prof-row:hover{background:#FFF5F6;}
+.pr-ic{font-size:20px;width:28px;text-align:center;flex-shrink:0;}
+.pr-inf{flex:1;}
+.pr-lbl{font-size:13px;font-weight:700;color:#111;}
+.pr-val{font-size:12px;color:#888;margin-top:1px;}
+.pr-arr{color:#ccc;font-size:15px;}
+
+/* ══════════════════════════════════════
+   OVERLAYS
+══════════════════════════════════════ */
+/* confetti */
+#confetti-c{position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden;}
+.cp{position:absolute;border-radius:2px;animation:cf linear forwards;}
+@keyframes cf{0%{transform:translateY(-10px) rotate(0);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
+
+/* wrong flash */
+#wflash{position:fixed;inset:0;background:rgba(200,0,0,.45);z-index:9998;display:none;animation:wf .45s ease forwards;}
+@keyframes wf{0%{opacity:1}100%{opacity:0}}
+
+/* level-up overlay — fits inside frame */
+#lvlup{position:absolute;inset:0;background:rgba(0,0,0,.85);z-index:200;display:none;align-items:center;justify-content:center;flex-direction:column;padding:30px;text-align:center;}
+#lvlup.show{display:flex;animation:si .4s ease;}
+.lvlup-icon{font-size:80px;animation:popIn .5s cubic-bezier(.34,1.56,.64,1);}
+@keyframes popIn{from{transform:scale(0) rotate(-20deg)}to{transform:scale(1)}}
+.lvlup-t{font-family:'Baloo 2',cursive;font-size:32px;font-weight:900;color:var(--gold);margin-top:12px;}
+.lvlup-s{font-size:15px;color:rgba(255,255,255,.75);margin-top:8px;line-height:1.6;}
+
+/* pulse animation for cards */
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+.pulse{animation:pulse .4s ease;}
+
+body.theme-dark #s-dash,body.theme-dark #s-missions,body.theme-dark #s-academia,body.theme-dark #s-profile{background:#130006;}
+body.theme-dark .mcd,body.theme-dark .mi,body.theme-dark .qcard,body.theme-dark .prof-sec,body.theme-dark .psc{background:#22000b;color:#fff;border-color:rgba(255,255,255,.1);}
+body.theme-dark .mcd-t,body.theme-dark .mi-t,body.theme-dark .qcard-q,body.theme-dark .pr-lbl{color:#fff;}
+body.theme-dark .sec,body.theme-dark .mi-s,body.theme-dark .pr-val,body.theme-dark .psc-l{color:rgba(255,255,255,.62);}
+body.theme-dark .nav{background:rgba(26,0,8,.97);border-color:rgba(255,209,102,.35);}
+body.theme-dark .ni-lb{color:rgba(255,255,255,.55);}
+body.theme-dark .prof-sec-lbl{border-bottom-color:rgba(255,255,255,.08);}
+body.theme-dark .prof-row{border-bottom-color:rgba(255,255,255,.06);}
+body.theme-dark .prof-row:hover{background:rgba(226,0,26,.12);}
+.pref-actions{display:flex;gap:8px;flex-wrap:wrap;padding:0 16px 13px;}
+.pref-chip{border:1px solid #eee;background:#fafafa;color:#555;border-radius:999px;padding:7px 10px;font:800 11px 'Nunito',sans-serif;cursor:pointer;}
+.pref-chip.on{background:var(--red);border-color:var(--red);color:#fff;}
+body.theme-dark .pref-chip{background:#180007;border-color:rgba(255,255,255,.12);color:#ddd;}
+body.theme-dark .pref-chip.on{background:var(--gold);border-color:var(--gold);color:#211300;}
+.profile-nav{background:linear-gradient(0deg,rgba(245,245,245,.98) 70%,transparent);}
+body.theme-dark .profile-nav{background:linear-gradient(0deg,rgba(26,0,8,.98) 70%,transparent);border-color:rgba(255,209,102,.35);}
+body.theme-dark .profile-nav .ni-lb{color:rgba(255,255,255,.55);}
+body.theme-dark .profile-nav .ni.act .ni-lb{color:var(--gold);}
+</style>
+</head>
+<body>
+
+<div id="confetti-c"></div>
+<div id="wflash"></div>
+
+<div class="frame" id="app">
+
+<!-- ───────── LEVEL-UP ───────── -->
+<div id="lvlup">
+  <div class="lvlup-icon">🏆</div>
+  <div class="lvlup-t" id="lvlup-t">Nível 4!</div>
+  <div class="lvlup-s" id="lvlup-s">Subiste de nível!<br>Continua assim!</div>
+  <button class="btn-r" style="margin-top:24px;max-width:200px;" onclick="closeLvlup()">Continuar →</button>
+</div>
+
+<!-- ══════════ SPLASH ══════════ -->
+<div class="scr on" id="s-splash">
+  <div class="splash-glow"></div>
+  <div style="text-align:center;margin-bottom:28px;">
+    <div class="logo-ic">💳</div>
+    <div class="logo-name">Txigital</div>
+    <div class="logo-tag">Educação Financeira · M-Pesa</div>
+  </div>
+  <p class="tagline">Aprende finanças jogando. Poupa com a tua comunidade. Cresce com o M-Pesa.</p>
+  <div style="width:100%;display:flex;flex-direction:column;gap:10px;">
+    <button class="btn-r" onclick="go('s-register')">🎮 Começar Agora</button>
+    <button class="btn-g" onclick="go('s-login')">Já tenho conta</button>
+  </div>
+  <div class="mpesa-pill">🔒 Integrado com <strong>M-Pesa</strong> · Seguro e Gratuito</div>
+</div>
+
+<!-- LOGIN -->
+<div class="scr" id="s-login">
+  <div class="reg-head"><div class="h1" style="font-size:26px;color:#fff;">Entrar</div><p style="font-size:13px;color:rgba(255,255,255,.6);margin-top:4px;">Confirma os teus dados para continuar</p></div>
+  <div class="reg-body">
+    <div class="inp-wrap"><div class="inp-label">Nome Completo</div><input class="inp" id="login-nome" type="text" placeholder="Ex: Ana Machava"></div>
+    <div class="inp-wrap"><div class="inp-label">N&uacute;mero de Celular</div><input class="inp" id="login-num" type="tel" inputmode="numeric" placeholder="84/85 xxx xxxx"></div>
+    <button class="btn-r" onclick="doLogin()">Continuar &rarr;</button>
+    <button class="btn-g" onclick="go('s-splash')">Voltar</button>
+  </div>
+</div>
+
+<!-- ══════════ REGISTER ══════════ -->
+<div class="scr" id="s-register">
+  <div class="reg-head">
+    <div class="h1" style="font-size:26px;color:#fff;">Criar Conta</div>
+    <p style="font-size:13px;color:rgba(255,255,255,.6);margin-top:4px;">Preenche os teus dados para começar</p>
+  </div>
+  <div class="reg-body">
+    <div class="inp-wrap"><div class="inp-label">Nome Completo</div><input class="inp" id="reg-nome" type="text" placeholder="Ex: Ana Machava"></div>
+    <div class="inp-wrap"><div class="inp-label">Número M-Pesa</div><input class="inp" id="reg-num" type="tel" inputmode="numeric" placeholder="84/85 xxx xxxx"></div>
+    <div class="inp-wrap"><div class="inp-label">Email (opcional)</div><input class="inp" id="reg-email" type="email" placeholder="email@exemplo.com"></div>
+    <div class="inp-wrap"><div class="inp-label">Data de Nascimento (opcional)</div><input class="inp" id="reg-dob" type="date" max=""></div>
+    <div class="inp-wrap">
+      <div class="inp-label">Província (opcional)</div>
+      <select class="inp" id="reg-prov">
+        <option value="">Selecionar...</option>
+        <option>Maputo</option><option>Gaza</option><option>Inhambane</option>
+        <option>Sofala</option><option>Manica</option><option>Tete</option>
+        <option>Zambézia</option><option>Nampula</option><option>Niassa</option><option>Cabo Delgado</option>
+      </select>
+    </div>
+    <button class="btn-r" onclick="doRegister()">Continuar →</button>
+  </div>
+</div>
+
+<!-- ══════════ AVATAR ══════════ -->
+<div class="scr" id="s-avatar">
+  <div class="av-head">
+    <div class="h1" style="font-size:24px;color:#fff;">Quem és tu?</div>
+    <p style="font-size:13px;color:rgba(255,255,255,.45);margin-top:3px;">Escolhe o teu personagem</p>
+  </div>
+  <div class="scroll" style="padding-bottom:20px;">
+    <div class="av-grid">
+      <div class="av-card" onclick="pickChar(this,'Ana','👩🏾','Vendedora no Mercado Xiquelene, Maputo')">
+        <span class="av-em">👩🏾</span>
+        <div class="av-name">Ana</div>
+        <div class="av-role">Vendedora no Mercado Xiquelene, Maputo</div>
+      </div>
+      <div class="av-card" onclick="pickChar(this,'Carlos','🚌','Motorista de Chapa, Maputo')">
+        <span class="av-em">🚌</span>
+        <div class="av-name">Carlos</div>
+        <div class="av-role">Motorista de Chapa, Maputo</div>
+      </div>
+      <div class="av-card" onclick="pickChar(this,'Fátima','👩‍🎓','Estudante Universitária, ISUTC')">
+        <span class="av-em">👩‍🎓</span>
+        <div class="av-name">Fátima</div>
+        <div class="av-role">Estudante Universitária, ISUTC</div>
+      </div>
+      <div class="av-card" onclick="pickChar(this,'João','🌾','Agricultor em Gaza')">
+        <span class="av-em">🌾</span>
+        <div class="av-name">João</div>
+        <div class="av-role">Agricultor em Gaza</div>
+      </div>
+    </div>
+    <div style="padding:0 16px 20px;">
+      <button class="btn-r" id="av-btn" style="opacity:.4;pointer-events:none;" onclick="startGame()">Começar Jornada →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ DASHBOARD ══════════ -->
+<div class="scr" id="s-dash">
+  <div class="dash-head">
+    <div class="dh-greet">Bem-vindo de volta 👋</div>
+    <div class="dh-name" id="dash-name">—</div>
+    <div class="dh-stats">
+      <div class="stat"><div class="stat-l">💰 Poupança</div><div class="stat-v" id="d-sav">—</div></div>
+      <div class="stat"><div class="stat-l">⭐ Nível</div><div class="stat-v" id="d-lvl">—</div><div class="stat-hint" id="d-lvl-hint">—</div></div>
+      <div class="stat"><div class="stat-l">🎯 XP</div><div class="stat-v" id="d-xp">—</div></div>
+    </div>
+  </div>
+  <div class="scroll">
+    <div class="dash-body">
+      <div><div class="sec">🔥 Missão de Hoje</div>
+        <div class="mcd" onclick="nav('s-missions')"><div class="mcd-ic" id="d-mis-ic">⚠️</div><div class="mcd-info"><div class="mcd-t" id="d-mis-t">—</div><div class="mcd-s" id="d-mis-s">—</div></div><div class="mcd-xp" id="d-mis-xp">—</div></div>
+      </div>
+      <div><div class="sec">📖 Academia</div>
+        <div class="mcd" style="border-left-color:#0066CC;" onclick="nav('s-academia')"><div class="mcd-ic">💡</div><div class="mcd-info"><div class="mcd-t" id="d-ac-t">—</div><div class="mcd-s">Academia · Literacia Financeira</div></div><div class="mcd-xp" style="background:#EEF4FF;color:#0066CC;">Novo</div></div>
+      </div>
+      <div><div class="sec">🏦 O Meu Xitique</div>
+        <div class="xi-dash" onclick="nav('s-xitique')">
+          <div style="font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;">Grupo Activo</div>
+          <div class="xi-dash-name" id="d-xi-name">Xitique</div>
+          <div class="xi-dash-amt" id="d-xi-amt">—</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:4px;" id="d-xi-sub">🔒 Bloqueado até fim do ciclo</div>
+          <div class="xi-prog"><div class="xi-pf" id="d-xi-prog" style="width:50%"></div></div>
+          <div style="font-size:11px;color:rgba(255,255,255,.35);margin-top:5px;" id="d-xi-turn">—</div>
+          <div class="mbr-row" id="d-mbr-row"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nav">
+    <div class="ni act" onclick="nav('s-dash')"><span class="ni-ic">🏠</span><span class="ni-lb">Início</span></div>
+    <div class="ni" onclick="nav('s-missions')"><span class="ni-ic">🎮</span><span class="ni-lb">Missões</span></div>
+    <div class="ni" onclick="nav('s-xitique')"><span class="ni-ic">🏦</span><span class="ni-lb">Xitique</span></div>
+    <div class="ni" onclick="nav('s-academia')"><span class="ni-ic">📚</span><span class="ni-lb">Academia</span></div>
+    <div class="ni" onclick="nav('s-profile')"><span class="ni-ic">👤</span><span class="ni-lb">Perfil</span></div>
+  </div>
+</div>
+
+<!-- ══════════ MISSIONS ══════════ -->
+<div class="scr" id="s-missions">
+  <div class="mis-head">
+    <div class="h1" style="font-size:26px;color:#fff;">🎮 Missões</div>
+    <p id="mis-sub">As tuas missões</p>
+  </div>
+  <div class="scroll"><div class="mis-list" id="mis-list"></div></div>
+  <div class="nav">
+    <div class="ni" onclick="nav('s-dash')"><span class="ni-ic">🏠</span><span class="ni-lb">Início</span></div>
+    <div class="ni act"><span class="ni-ic">🎮</span><span class="ni-lb">Missões</span></div>
+    <div class="ni" onclick="nav('s-xitique')"><span class="ni-ic">🏦</span><span class="ni-lb">Xitique</span></div>
+    <div class="ni" onclick="nav('s-academia')"><span class="ni-ic">📚</span><span class="ni-lb">Academia</span></div>
+    <div class="ni" onclick="nav('s-profile')"><span class="ni-ic">👤</span><span class="ni-lb">Perfil</span></div>
+  </div>
+</div>
+
+<!-- ══════════ XITIQUE ══════════ -->
+<div class="scr" id="s-xitique">
+  <div class="xi-head">
+    <div class="h1" style="font-size:24px;color:#fff;">🏦 Xitique Digital</div>
+    <p>Poupança colectiva segura via M-Pesa</p>
+  </div>
+  <div class="scroll"><div class="xi-body" id="xi-body"></div></div>
+  <div class="nav xitique-nav">
+    <div class="ni" onclick="nav('s-dash')"><span class="ni-ic">🏠</span><span class="ni-lb">Início</span></div>
+    <div class="ni" onclick="nav('s-missions')"><span class="ni-ic">🎮</span><span class="ni-lb">Missões</span></div>
+    <div class="ni act"><span class="ni-ic">🏦</span><span class="ni-lb">Xitique</span></div>
+    <div class="ni" onclick="nav('s-academia')"><span class="ni-ic">📚</span><span class="ni-lb">Academia</span></div>
+    <div class="ni" onclick="nav('s-profile')"><span class="ni-ic">👤</span><span class="ni-lb">Perfil</span></div>
+  </div>
+</div>
+
+<!-- ══════════ ACADEMIA ══════════ -->
+<div class="scr" id="s-academia">
+  <div class="ac-head">
+    <div class="h1" style="font-size:26px;color:#fff;">📚 Academia</div>
+    <p id="ac-sub">Lições para a tua realidade</p>
+  </div>
+  <div class="theme-row" id="theme-row"></div>
+  <div class="scroll" style="padding-top:8px;"><div class="qlist" id="qlist"></div></div>
+  <div class="nav">
+    <div class="ni" onclick="nav('s-dash')"><span class="ni-ic">🏠</span><span class="ni-lb">Início</span></div>
+    <div class="ni" onclick="nav('s-missions')"><span class="ni-ic">🎮</span><span class="ni-lb">Missões</span></div>
+    <div class="ni" onclick="nav('s-xitique')"><span class="ni-ic">🏦</span><span class="ni-lb">Xitique</span></div>
+    <div class="ni act"><span class="ni-ic">📚</span><span class="ni-lb">Academia</span></div>
+    <div class="ni" onclick="nav('s-profile')"><span class="ni-ic">👤</span><span class="ni-lb">Perfil</span></div>
+  </div>
+</div>
+
+<!-- ══════════ QUIZ ══════════ -->
+<div class="scr" id="s-quiz">
+  <div class="quiz-top">
+    <button style="background:rgba(255,255,255,.1);border:none;color:#fff;border-radius:50%;width:34px;height:34px;font-size:16px;cursor:pointer;margin-bottom:10px;" onclick="nav('s-academia')">←</button>
+    <div class="qprog-bar"><div class="qprog-fill" id="qprog" style="width:10%"></div></div>
+    <div class="quiz-counter" id="qctr">Pergunta 1</div>
+  </div>
+  <div class="quiz-body" id="quiz-body"></div>
+</div>
+
+<!-- ══════════ PROFILE ══════════ -->
+<div class="scr" id="s-profile">
+  <div class="prof-head">
+    <div class="prof-av-wrap">
+      <div class="prof-av" id="prof-av">👩🏾</div>
+      <div class="prof-edit" onclick="alert('Toca para alterar a foto de perfil')">✏️</div>
+    </div>
+    <div class="prof-name" id="prof-name">—</div>
+    <div class="prof-num" id="prof-num">—</div>
+    <div class="prof-lvl" id="prof-lvl">⭐ Nível 1 · 0 XP</div>
+  </div>
+  <div class="scroll">
+    <div class="prof-body">
+      <div class="prof-stats">
+        <div class="psc"><div class="psc-v" id="ps-mis">0</div><div class="psc-l">Missões</div></div>
+        <div class="psc"><div class="psc-v" id="ps-xp">0</div><div class="psc-l">XP Total</div></div>
+        <div class="psc"><div class="psc-v" id="ps-bdg">0</div><div class="psc-l">Badges</div></div>
+      </div>
+      <div class="prof-sec">
+        <div class="prof-sec-lbl">Informações Pessoais</div>
+        <div class="prof-row" onclick="editField('nome')"><span class="pr-ic">👤</span><div class="pr-inf"><div class="pr-lbl">Nome completo</div><div class="pr-val" id="p-nome">—</div></div><span class="pr-arr">›</span></div>
+        <div class="prof-row" onclick="editField('num')"><span class="pr-ic">📱</span><div class="pr-inf"><div class="pr-lbl">Número M-Pesa</div><div class="pr-val" id="p-num">—</div></div><span class="pr-arr">›</span></div>
+        <div class="prof-row" onclick="editField('email')"><span class="pr-ic">📧</span><div class="pr-inf"><div class="pr-lbl">Email</div><div class="pr-val" id="p-email">—</div></div><span class="pr-arr">›</span></div>
+        <div class="prof-row" onclick="editField('dob')"><span class="pr-ic">🎂</span><div class="pr-inf"><div class="pr-lbl">Data de Nascimento</div><div class="pr-val" id="p-dob">—</div></div><span class="pr-arr">›</span></div>
+        <div class="prof-row" onclick="editField('prov')"><span class="pr-ic">🏠</span><div class="pr-inf"><div class="pr-lbl">Província</div><div class="pr-val" id="p-prov">—</div></div><span class="pr-arr">›</span></div>
+      </div>
+      <div class="prof-sec">
+        <div class="prof-sec-lbl">Conta M-Pesa</div>
+        <div class="prof-row"><span class="pr-ic">💳</span><div class="pr-inf"><div class="pr-lbl">Saldo M-Pesa</div><div class="pr-val" id="p-sav">—</div></div><span class="pr-arr">›</span></div>
+        <div class="prof-row"><span class="pr-ic">🔐</span><div class="pr-inf"><div class="pr-lbl">Alterar PIN</div><div class="pr-val">Última alteração: 3 meses atrás</div></div><span class="pr-arr">›</span></div>
+        <div class="prof-row"><span class="pr-ic">📜</span><div class="pr-inf"><div class="pr-lbl">Histórico de Transações</div><div class="pr-val">Ver todas as movimentações</div></div><span class="pr-arr">›</span></div>
+        <div class="prof-row"><span class="pr-ic">📋</span><div class="pr-inf"><div class="pr-lbl">Extrato Mensal</div><div class="pr-val">Descarregar PDF</div></div><span class="pr-arr">›</span></div>
+      </div>
+      <div class="prof-sec">
+        <div class="prof-sec-lbl">Preferências</div>
+        <div class="prof-row"><span class="pr-ic">&#127757;</span><div class="pr-inf"><div class="pr-lbl">Idioma</div><div class="pr-val" id="p-lang">Português</div></div></div><div class="pref-actions"><button class="pref-chip" id="lang-pt" onclick="setLanguage('pt')">Português</button><button class="pref-chip" id="lang-en" onclick="setLanguage('en')">English</button></div>
+        <div class="prof-row"><span class="pr-ic">🔔</span><div class="pr-inf"><div class="pr-lbl">Notificações</div><div class="pr-val">Activadas</div></div><span class="pr-arr">›</span></div>
+        <div class="prof-row"><span class="pr-ic">&#127769;</span><div class="pr-inf"><div class="pr-lbl">Tema</div><div class="pr-val" id="p-theme">Automático</div></div></div><div class="pref-actions"><button class="pref-chip" id="theme-light" onclick="setThemeMode('light')">Claro</button><button class="pref-chip" id="theme-dark" onclick="setThemeMode('dark')">Escuro</button><button class="pref-chip" id="theme-auto" onclick="setThemeMode('auto')">Auto</button></div>
+        <div class="prof-row"><span class="pr-ic">🔒</span><div class="pr-inf"><div class="pr-lbl">Privacidade e Segurança</div><div class="pr-val">Gerir permissões</div></div><span class="pr-arr">›</span></div>
+      </div>
+      <div class="prof-sec">
+        <div class="prof-sec-lbl">Conquistas</div>
+        <div class="prof-row" onclick="showBadges()"><span class="pr-ic">🏆</span><div class="pr-inf"><div class="pr-lbl">Os Meus Badges</div><div class="pr-val" id="p-bdg">0 badges conquistados</div></div><span class="pr-arr">›</span></div>
+        <div class="prof-row" onclick="showStats()"><span class="pr-ic">📊</span><div class="pr-inf"><div class="pr-lbl">Estatísticas</div><div class="pr-val" id="p-stats">0 missões · 0% acertos</div></div><span class="pr-arr">›</span></div>
+        <div class="prof-row"><span class="pr-ic">🎓</span><div class="pr-inf"><div class="pr-lbl">Certificado de Literacia</div><div class="pr-val">Em progresso</div></div><span class="pr-arr">›</span></div>
+      </div>
+      <div class="prof-sec">
+        <div class="prof-sec-lbl">Personagem RPG</div>
+        <div class="prof-row"><span class="pr-ic" id="p-char-ic">👩🏾</span><div class="pr-inf"><div class="pr-lbl" id="p-char-name">—</div><div class="pr-val" id="p-char-role">—</div></div><span class="pr-arr" onclick="go('s-avatar')" style="cursor:pointer;color:var(--red);">Trocar</span></div>
+        <div class="prof-row"><span class="pr-ic">⭐</span><div class="pr-inf"><div class="pr-lbl">Nível actual</div><div class="pr-val" id="p-lvl-desc">—</div></div></div>
+      </div>
+      <div class="prof-sec">
+        <div class="prof-sec-lbl">Suporte</div>
+        <div class="prof-row"><span class="pr-ic">❓</span><div class="pr-inf"><div class="pr-lbl">Ajuda e FAQ</div></div><span class="pr-arr">›</span></div>
+        <div class="prof-row" onclick="location.href='tel:84111'"><span class="pr-ic">&#128222;</span><div class="pr-inf"><div class="pr-lbl">Linha do Cliente/M-Pesa</div><div class="pr-val">84111 &middot; Vodacom/M-Pesa Mo&ccedil;ambique</div></div><span class="pr-arr">&rsaquo;</span></div>
+        <div class="prof-row" onclick="logout()" style="color:var(--red);"><span class="pr-ic">🚪</span><div class="pr-inf"><div class="pr-lbl" style="color:var(--red);">Terminar Sessão</div></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="nav profile-nav">
+    <div class="ni" onclick="nav('s-dash')"><span class="ni-ic">🏠</span><span class="ni-lb">Início</span></div>
+    <div class="ni" onclick="nav('s-missions')"><span class="ni-ic">🎮</span><span class="ni-lb">Missões</span></div>
+    <div class="ni" onclick="nav('s-xitique')"><span class="ni-ic">🏦</span><span class="ni-lb">Xitique</span></div>
+    <div class="ni" onclick="nav('s-academia')"><span class="ni-ic">📚</span><span class="ni-lb">Academia</span></div>
+    <div class="ni act"><span class="ni-ic">👤</span><span class="ni-lb">Perfil</span></div>
+  </div>
+</div>
+
+</div><!-- end frame -->
+
+<script>
+/* ══════════════════════════════════════════════
+   STATE
+══════════════════════════════════════════════ */
+const S = {
+  nome:'', num:'', email:'', dob:'', prov:'', lang:'Português', langCode:'pt', languageChosen:false, themeMode:'light',
+  char:'', emoji:'', role:'',
+  xp:0, lvl:1, savings:0, missions_done:0, correct:0, total_q:0, badges:0,
+  doneMissions: new Set(),
+  doneQuestions: new Set(), questionResults:{}, missionResults:{},
+  currentTheme:'',
+  quizQueue:[], quizIdx:0, quizSource:null
+};
+
+/* Level thresholds */
+const LEVELS=[0,100,250,450,700,1000,1400,1900,2500,3200,4000];
+const LEVEL_NAMES=['Iniciante','Aprendiz','Curioso','Esperto','Habilidoso','Confiante','Avançado','Expert','Mestre','Lenda'];
+
+function xpToLevel(x){for(let i=LEVELS.length-1;i>=0;i--){if(x>=LEVELS[i])return i+1;}return 1;}
+function xpForNext(l){return LEVELS[Math.min(l,LEVELS.length-1)];}
+function lvlName(l){return LEVEL_NAMES[Math.min(l-1,LEVEL_NAMES.length-1)];}
+
+const STORE_KEY='txigital_state_v7';
+const I18N={pt:{home:'In\u00edcio',missions:'Miss\u00f5es',xitique:'Xitique',academy:'Academia',profile:'Perfil',themeAuto:'Automático',themeLight:'Claro',themeDark:'Escuro'},en:{home:'Home',missions:'Missions',xitique:'Xitique',academy:'Academy',profile:'Profile',themeAuto:'Automatic',themeLight:'Light',themeDark:'Dark'}};
+const EN_PHRASES = [
+  ['📚 Academia','📚 Academy'],['Qual é a vantagem de aceitar M-Pesa na tua banca?','What is the advantage of accepting M-Pesa at your stall?'],['Como verificas que um pagamento M-Pesa chegou antes de dar a mercadoria?','How do you verify that an M-Pesa payment arrived before handing over the goods?'],['A tua banca vendeu 8.000 MT mas os custos foram 5.200 MT. Qual é o teu lucro real?','Your stall sold 8,000 MT but costs were 5,200 MT. What is your real profit?'],['Quais são os 3 maiores riscos de ter muito dinheiro físico na banca?','What are the 3 biggest risks of keeping too much physical cash at the stall?'],['Qual é a vantagem de aceitar M-Pesa','What is the advantage of accepting M-Pesa'],['Como verificas que um pagamento M-Pesa chegou','How do you verify that an M-Pesa payment arrived'],['antes de dar a mercadoria','before handing over the goods'],['A tua banca vendeu','Your stall sold'],['mas os custos foram','but the costs were'],['Qual é o teu lucro real?','What is your real profit?'],['Quais são os 3 maiores riscos','What are the 3 biggest risks'],['ter muito dinheiro físico','keeping too much physical cash'],['na banca','at the stall'],['tua banca','your stall'],['mercadoria','goods'],['vantagem','advantage'],['chegou','arrived'],['custos','costs'],['lucro real','real profit'],['O Agente Suspeito','The Suspicious Agent'],['Um estranho quer o teu PIN M-Pesa...','A stranger wants your M-Pesa PIN...'],['O Salário de Outubro','October Salary'],['Como distribuir os 5.000 MT do mês?','How should you distribute the 5,000 MT this month?'],['Receber por M-Pesa na Banca','Receiving M-Pesa at the Stall'],['Uma cliente quer pagar via M-Pesa','A customer wants to pay via M-Pesa'],['Orçamento da Banca','Stall Budget'],['Planear as compras de stock do mês','Plan this month\'s stock purchases'],['O Empréstimo Rápido','The Fast Loan'],['Uma oferta suspeita de crédito fácil','A suspicious easy-credit offer'],['Meta de Poupança','Savings Goal'],['Poupar para expandir a banca','Save to expand the stall'],['Criar o Xitique Digital','Create the Digital Xitique'],['Organizar poupança em grupo com as amigas','Organize group savings with friends'],['Segurança no M-Pesa','M-Pesa Security'],['Desafio avançado de protecção da conta','Advanced account protection challenge'],['Orçamento','Budget'],['Pagamentos Digitais','Digital Payments'],['Prevenção de Fraudes','Fraud Prevention'],['Reembolso de Empréstimos','Loan Repayment'],['Vantagens Sem Dinheiro','Cashless Benefits'],['No Xitique, quando podes levantar o teu dinheiro?','In Xitique, when can you withdraw your money?'],['Como identificas uma nota de 500 MT falsa no mercado?','How do you identify a fake 500 MT note in the market?'],['Se aceitares M-Pesa na banca, como isso ajuda o teu negócio a crescer?','If you accept M-Pesa at the stall, how does it help your business grow?'],['O que é a Regra 50-30-20 aplicada ao teu negócio?','What is the 50-30-20 rule applied to your business?'],['Pediste 5.000 MT emprestado a uma amiga. Qual é a melhor forma de pagar?','You borrowed 5,000 MT from a friend. What is the best way to repay it?'],['Qual é o melhor hábito de poupança para renda irregular como a tua?','What is the best saving habit for irregular income like yours?'],['Em 5 anos queres abrir uma loja. Precisas de 80.000 MT. Quanto poupas por mês?','In 5 years you want to open a shop. You need 80,000 MT. How much should you save per month?'],['Um "fiscal do M-Pesa" pede para verificar a tua conta no local. O que fazes?','An "M-Pesa inspector" asks to verify your account on the spot. What do you do?'],['Recebeste 5.000 MT. Gastos fixos','You received 5,000 MT. Fixed expenses'],['O que fazes com o restante','What do you do with the remaining'],['Acabaste de vender capulanas','You just sold capulanas'],['Um homem diz','A man says'],['Qual é o processo correcto para receber?','What is the correct receiving process?'],['Escolhe a melhor resposta:','Choose the best answer:'],['Qual é a tua decisão?','What is your decision?'],['mês','month'],['negócio','business'],['dinheiro','money'],['poupar','save'],['Poupar','Save'],['poupança','savings'],['fraude','fraud'],['Fraudes','Fraud'],['conta','account'],['cliente','customer'],['mercado','market'],['banca','stall'],['amigas','friends'],['colegas','colleagues'],['universidade','university'],['propinas','tuition'],['bolsa','grant'],['pagamento','payment'],['pagamentos','payments'],['empréstimo','loan'],['dívida','debt'],['resposta','answer'],['pergunta','question'],['correcto','correct'],['Correcto','Correct'],['errada','wrong'],['ganhas','you earn'],['recebes','you receive'],['guardar','keep'],['separar','set aside'],['reportar','report'],['verificar','verify'],['seguro','safe'],['físico','physical'],['digital','Digital'],
+  ['Bem-vindo de volta','Welcome back'],['Poupança','Savings'],['Nível','Level'],['Missão de Hoje','Today\'s Mission'],['Academia · Literacia Financeira','Academy · Financial Literacy'],['O Meu Xitique','My Xitique'],['Grupo Activo','Active Group'],['Bloqueado até fim do ciclo','Locked until the end of the cycle'],['Turno de','Turn for'],['Total Acumulado','Total Saved'],['membros','members'],['turnos','turns'],['mês','month'],['O valor fica','The amount stays'],['bloqueado','locked'],['até ao fim do ciclo para proteger todos os membros. Só o beneficiário do turno pode levantar.','until the end of the cycle to protect every member. Only the turn beneficiary can withdraw.'],['Contribuir via M-Pesa','Contribute with M-Pesa'],['Contribuição de','Contribution of'],['processada','processed'],['Comprovativo enviado por SMS.','Receipt sent by SMS.'],['Pagamentos em dia','Payments up to date'],['Atraso','Late'],['Próximo beneficiário','Next beneficiary'],['Aguarda turno','Waiting for turn'],['Pago','Paid'],['Próximo','Next'],['Aguarda','Waiting'],['recebido','received'],['contribuído','contributed'],['Lições para','Lessons for'],['Vendedora','Vendor'],['Motorista','Driver'],['Estudante','Student'],['Agricultor','Farmer'],['Aleatório','Random'],['Completo','Complete'],['Respondida','Answered'],['Escolhe a melhor resposta','Choose the best answer'],['Qual é a tua decisão','What is your decision'],['Pergunta','Question'],['Missão · Responde','Mission · Answer'],['Dica','Tip'],['Resposta revista','Reviewed answer'],['ganhos','earned'],['Sem XP desta vez','No XP this time'],['Melhor resposta','Best answer'],['Excelente','Excellent'],['Quase lá','Almost there'],['Resposta Errada','Wrong answer'],['Próxima pergunta','Next question'],['Próxima missão','Next mission'],['Terminar Sessão','Log out'],['Nível actual','Current level'],['Iniciante','Beginner'],['Aprendiz','Learner'],['Curioso','Curious'],['Esperto','Smart'],['Habilidoso','Skilled'],['Confiante','Confident'],['Avançado','Advanced'],['Mestre','Master'],['Lenda','Legend'],['missões','missions'],['Vendedora no Mercado Xiquelene, Maputo','Vendor at Xiquelene Market, Maputo'],['Início','Home'],['Missões','Missions'],['Perfil','Profile'],['Nome completo','Full name'],['Número M-Pesa','M-Pesa number'],['Data de Nascimento','Date of birth'],['Província (opcional)','Province (optional)'],['Província','Province'],['Informações Pessoais','Personal Information'],['Conta M-Pesa','M-Pesa Account'],['Saldo M-Pesa','M-Pesa Balance'],['Alterar PIN','Change PIN'],['Última alteração: 3 meses atrás','Last changed: 3 months ago'],['Histórico de Transações','Transaction History'],['Ver todas as movimentações','View all movements'],['Extrato Mensal','Monthly Statement'],['Descarregar PDF','Download PDF'],['Preferências','Preferences'],['Idioma','Language'],['Notificações','Notifications'],['Activadas','Enabled'],['Tema','Theme'],['Privacidade e Segurança','Privacy and Security'],['Gerir permissões','Manage permissions'],['Conquistas','Achievements'],['Os Meus Badges','My Badges'],['badges conquistados','badges earned'],['Estatísticas','Statistics'],['acertos','correct'],['Certificado de Literacia','Literacy Certificate'],['Badges conquistados:','Earned badges:'],['Ainda não conquistaste badges. Responde correctamente às missões e perguntas da Academia para desbloquear conquistas.','You have not earned badges yet. Answer missions and Academy questions correctly to unlock achievements.'],['Primeira Resposta','First Answer'],['Respondeste ao primeiro desafio.','You answered your first challenge.'],['Poupa Esperto','Smart Saver'],['Completaste 3 respostas correctas.','You completed 3 correct answers.'],['Guardião do PIN','PIN Guardian'],['Mostraste bons hábitos de segurança.','You showed good security habits.'],['Mestre do Xitique','Xitique Master'],['Avançaste nas missões de poupança em grupo.','You advanced in group savings missions.'],['Acertos','Correct'],['Errados','Wrong'],['Total respondido','Total answered'],['Taxa de acerto','Accuracy rate'],['Em progresso','In progress'],['Personagem RPG','RPG Character'],['Nível actual','Current level'],['Suporte','Support'],['Ajuda e FAQ','Help and FAQ'],['Linha do Cliente/M-Pesa','Customer/M-Pesa Support Line'],['Terminar Sessão','Log out'],['Trocar','Change'],['Claro','Light'],['Escuro','Dark'],['Automático','Automatic'],['Português','Portuguese'],['Criar Conta','Create Account'],['Preenche os teus dados para começar','Fill in your details to start'],['Nome Completo','Full Name'],['Número de Celular','Phone Number'],['Número M-Pesa','M-Pesa Number'],['Email (opcional)','Email (optional)'],['Data de Nascimento (opcional)','Date of Birth (optional)'],['Selecionar','Select'],['Continuar','Continue'],['Voltar','Back'],['Entrar','Sign in'],['Confirma os teus dados para continuar','Confirm your details to continue'],['Quem és tu','Who are you'],['Escolhe o teu personagem','Choose your character'],['Começar Jornada','Start Journey'],['Começar como','Start as'],['Vendedora no Mercado Xiquelene, Maputo','Vendor at Xiquelene Market, Maputo'],['Motorista de Chapa, Maputo','Minibus driver, Maputo'],['Estudante Universitária, ISUTC','ISUTC student'],['Agricultor em Gaza','Farmer in Gaza'],['Aprender sobre','Learn about'],['As tuas missões','Your missions'],['Missões de','Missions for'],['Fácil','Easy'],['Médio','Medium'],['Difícil','Hard'],['Expert','Expert'],['Certa','Correct'],['Revê a resposta','Review answer'],['Poupa com a tua comunidade','Save with your community'],['Aprende finanças jogando','Learn finance by playing'],['Cresce com o M-Pesa','Grow with M-Pesa'],['Integrado com','Integrated with'],['Seguro e Gratuito','Safe and Free'],['Vodacom/M-Pesa Moçambique','Vodacom/M-Pesa Mozambique'],['Moçambique','Mozambique'],['Começar Agora','Start Now'],['Já tenho conta','I already have an account']
+];
+function enText(value){
+  if(value==null) return value;
+  let out=String(value);
+  [...EN_PHRASES].sort((a,b)=>b[0].length-a[0].length).forEach(([pt,en])=>{out=out.split(pt).join(en);});
+  const terms=[
+    ['Educação Financeira','Financial Education'],['Literacia Financeira','Financial Literacy'],['Lições','Lessons'],['Missão','Mission'],['Missões','Missions'],['Academia','Academy'],['Perfil','Profile'],['Início','Home'],['Quem és tu','Who are you'],['Escolhe o teu personagem','Choose your character'],['Criar Conta','Create Account'],['Entrar','Sign in'],['Preenche os teus dados para começar','Fill in your details to start'],['Confirma os teus dados para continuar','Confirm your details to continue'],
+    ['Qual é','What is'],['Como','How'],['Quando','When'],['Quanto','How much'],['Quais são','What are'],['O que','What'],['Porquê','Why'],['porque','because'],['para','for'],['com','with'],['sem','without'],['antes de','before'],['depois de','after'],['durante','during'],['sempre','always'],['nunca','never'],['melhor','best'],['principal','main'],['primeiro','first'],['último','last'],['próximo','next'],['actual','current'],['todos','all'],['todas','all'],['cada','each'],
+    ['tuas','your'],['teus','your'],['tua','your'],['teu','your'],['meu','my'],['minha','my'],['nossa','our'],['nosso','our'],['deles','their'],['delas','their'],
+    ['dinheiro','money'],['físico','physical'],['digital','Digital'],['poupança','savings'],['poupar','save'],['guardar','save'],['gastar','spend'],['pagamento','payment'],['pagamentos','payments'],['pagar','pay'],['receber','receive'],['recebeste','you received'],['recebes','you receive'],['recebeu','received'],['ganhas','you earn'],['ganhou','earned'],['saldo','balance'],['comprovativo','receipt'],['PIN','PIN'],['SIM','SIM'],
+    ['orçamento','budget'],['renda','income'],['despesas','expenses'],['custos','costs'],['lucro','profit'],['dívida','debt'],['empréstimo','loan'],['juros','interest'],['banco','bank'],['microfinanceiras','microfinance institutions'],['crédito','credit'],['taxa','fee'],['bolsa','grant'],['propinas','tuition'],['tese','thesis'],['formatura','graduation'],
+    ['fraude','fraud'],['golpe','scam'],['suspeito','suspicious'],['suspeita','suspicious'],['segurança','security'],['seguro','safe'],['proteger','protect'],['reportar','report'],['apagar','delete'],['recusar','refuse'],['verificar','verify'],['confirmar','confirm'],['identificação','identification'],['oficial','official'],['secretaria','secretariat'],
+    ['mercado','market'],['banca','stall'],['stock','stock'],['cliente','customer'],['clientes','customers'],['capulana','capulana'],['capulanas','capulanas'],['mercadoria','goods'],['loja','shop'],['negócio','business'],['expandir','expand'],['vender','sell'],['vendas','sales'],['compras','purchases'],['comprar','buy'],
+    ['xitique','Xitique'],['grupo','group'],['membros','members'],['turno','turn'],['beneficiário','beneficiary'],['contribuição','contribution'],['contribuir','contribute'],['contribuído','contributed'],['levantamento','withdrawal'],['levantar','withdraw'],['bloqueado','locked'],['ciclo','cycle'],['transparência','transparency'],['registo','record'],['registos','records'],['automático','automatic'],
+    ['motorista','driver'],['chapa','minibus'],['combustível','fuel'],['rotas','routes'],['passageiro','passenger'],['colegas','colleagues'],['estudante','student'],['universidade','university'],['faculdade','college'],['agricultor','farmer'],['agricultores','farmers'],['machamba','farm'],['colheita','harvest'],['seca','drought'],['sementes','seeds'],['tractor','tractor'],['compradores','buyers'],['intermediário','middleman'],
+    ['Fácil','Easy'],['Médio','Medium'],['Difícil','Hard'],['Resposta Errada','Wrong Answer'],['Resposta revista','Reviewed answer'],['Melhor resposta','Best answer'],['Respondida','Answered'],['Completo','Complete'],['Certa','Correct'],['ganhos','earned'],['Sem XP desta vez','No XP this time'],['Dica','Tip'],['Excelente','Excellent'],['Quase lá','Almost there'],['Escolhe a melhor resposta','Choose the best answer'],['Qual é a tua decisão','What is your decision'],
+    ['Número de Celular','Phone Number'],['Número M-Pesa','M-Pesa Number'],['Nome Completo','Full Name'],['Email opcional','Email optional'],['Data de Nascimento','Date of Birth'],['Província (opcional)','Province (optional)'],['Província','Province'],['Selecionar','Select'],['Continuar','Continue'],['Voltar','Back'],['Começar Agora','Start Now'],['Já tenho conta','I already have an account'],['Começar Jornada','Start Journey'],['Trocar','Change'],['Suporte','Support'],['Ajuda','Help'],['Notificações','Notifications'],['Activadas','Enabled'],['Tema','Theme'],['Claro','Light'],['Escuro','Dark'],['Idioma','Language'],['Privacidade','Privacy'],['Conquistas','Achievements'],['Estatísticas','Statistics'],['Certificado','Certificate'],['Em progresso','In progress']
+  ];
+  const esc=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  terms.sort((a,b)=>b[0].length-a[0].length).forEach(([pt,en])=>{const re=new RegExp('(^|[^A-Za-zÀ-ÿ])'+esc(pt)+'(?=$|[^A-Za-zÀ-ÿ])','gi');out=out.replace(re,(m,p)=>p+en);});
+  return out;
+}
+function txt(value){return S.langCode==='en'?enText(value):value;}
+function isEnglish(){return S.langCode==='en';}
+function challengeText(item){
+  if(!isEnglish()) return item.q;
+  const theme=enText(item.theme||item.qkey||'financial literacy');
+  return 'Financial challenge: choose the safest and smartest option for this '+theme+' scenario.';
+}
+function missionContextText(m){
+  if(!isEnglish()) return m.ctx;
+  return 'Read this real-life financial situation carefully. Protect your money, your records and your M-Pesa PIN.';
+}
+function missionQuoteText(m){
+  if(!isEnglish()) return m.quote||'';
+  return 'What is the safest decision?';
+}
+function choiceText(c){
+  if(!isEnglish()) return c.t;
+  if(c.type==='best') return 'Choose the safe, verified and transparent option.';
+  if(c.type==='mid') return 'Be cautious, but check if this still leaves risk.';
+  return 'Take the risky option without proper verification.';
+}
+function feedbackText(raw,type){
+  if(!isEnglish()) return raw||'';
+  if(type==='best') return 'Excellent. You chose the safest option: verify information, protect your PIN and keep a clear record of the transaction.';
+  if(type==='mid') return 'Almost there. Your caution helps, but the safest choice is the one that verifies the source and avoids unnecessary risk.';
+  return 'This option is risky. The safest answer protects your money, avoids sharing private data and uses verified M-Pesa records.';
+}
+function localizeElementText(root=document){
+  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode(n){return n.nodeValue.trim()?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT;}});
+  const nodes=[]; while(walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(n=>{
+    if(n._ptText===undefined) n._ptText=n.nodeValue;
+    n.nodeValue=S.langCode==='en'?enText(n._ptText):n._ptText;
+  });
+  document.documentElement.lang=S.langCode==='en'?'en':'pt';
+}
+function normalizePhone(raw){
+  const digits=String(raw||'').replace(/\D/g,'');
+  if(digits.startsWith('258') && digits.length===12) return digits.slice(3);
+  return digits;
+}
+function isVodacomPhone(raw){return /^(84|85)\d{7}$/.test(normalizePhone(raw));}
+function formatPhone(raw){const d=normalizePhone(raw);return '+258 '+d.slice(0,2)+' '+d.slice(2,5)+' '+d.slice(5);}
+function parseMozDate(raw){
+  const v=String(raw||'').trim();
+  if(!v) return {ok:true,value:''};
+  const iso=v.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  const m=iso?[iso[0],iso[3],iso[2],iso[1]]:v.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+  if(!m) return {ok:false,msg:'Usa o formato dd/mm/aaaa.'};
+  const day=Number(m[1]), month=Number(m[2]), year=Number(m[3]);
+  const date=new Date(year,month-1,day);
+  if(date.getFullYear()!==year||date.getMonth()!==month-1||date.getDate()!==day) return {ok:false,msg:'A data indicada não existe no calendário.'};
+  const today=new Date(); today.setHours(0,0,0,0);
+  if(date>today) return {ok:false,msg:'A data não pode ser superior à data actual.'};
+  return {ok:true,value:m[1]+'/'+m[2]+'/'+m[3]};
+}
+function mozDateToIso(value){
+  const m=String(value||'').match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+  return m?m[3]+'-'+m[2]+'-'+m[1]:'';
+}
+function todayIso(){
+  const d=new Date();
+  const mm=String(d.getMonth()+1).padStart(2,'0');
+  const dd=String(d.getDate()).padStart(2,'0');
+  return d.getFullYear()+'-'+mm+'-'+dd;
+}
+function pickDateWithCalendar(){
+  const input=document.createElement('input');
+  input.type='date';
+  input.max=todayIso();
+  input.value=mozDateToIso(S.dob);
+  input.style.position='fixed';
+  input.style.left='50%';
+  input.style.top='50%';
+  input.style.transform='translate(-50%,-50%)';
+  input.style.zIndex='9999';
+  input.style.opacity='0.01';
+  document.body.appendChild(input);
+  const done=()=>{
+    if(input.value){
+      const dob=parseMozDate(input.value);
+      if(!dob.ok){alert(dob.msg);}else{S.dob=dob.value;saveState();renderProfile();}
+    }
+    setTimeout(()=>input.remove(),150);
+  };
+  input.addEventListener('change',done,{once:true});
+  input.addEventListener('blur',()=>setTimeout(()=>input.remove(),250),{once:true});
+  input.showPicker?.();
+  input.focus();
+}
+function nextMission(){
+  const mis=MISSIONS[S.char]||MISSIONS.Ana;
+  const next=mis.findIndex((_,i)=>!S.doneMissions.has(i));
+  if(next>=0){doMission(next);return;}
+  nav('s-missions');
+}
+function nextAcademiaQuestion(){
+  const ids=Object.keys(acPool);
+  const next=ids.find(id=>!S.doneQuestions.has(id));
+  if(next){startAcQ(next);return;}
+  nav('s-academia');
+}
+
+function shuffle(arr){return [...arr].sort(()=>Math.random()-.5);}
+function saveState(){const plain={...S,doneMissions:[...S.doneMissions],doneQuestions:[...S.doneQuestions]};localStorage.setItem(STORE_KEY,JSON.stringify(plain));}
+function loadState(){try{const raw=localStorage.getItem(STORE_KEY);if(!raw)return;const data=JSON.parse(raw);Object.assign(S,data);if(!data.languageChosen){S.langCode='pt';S.lang='Português';S.languageChosen=false;}if(!data.themeChosen){S.themeMode='light';S.themeChosen=false;}S.doneMissions=new Set(data.doneMissions||[]);S.doneQuestions=new Set(data.doneQuestions||[]);S.questionResults=data.questionResults||{};S.missionResults=data.missionResults||{};}catch(e){}}
+function isNightNow(){const h=new Date().getHours();return h<6||h>=18;}
+function applyTheme(){document.body.classList.toggle('theme-dark',S.themeMode==='dark'||(S.themeMode==='auto'&&isNightNow()));}
+function applyLanguage(){const t=I18N[S.langCode||'pt']||I18N.pt;document.querySelectorAll('.ni-lb').forEach(lb=>{const v=lb.textContent.trim().toLowerCase();if(v.includes('in')||v==='home')lb.textContent=t.home;else if(v.includes('miss')||v==='missions')lb.textContent=t.missions;else if(v.includes('xitique'))lb.textContent=t.xitique;else if(v.includes('academ')||v==='academy')lb.textContent=t.academy;else if(v.includes('perfil')||v==='profile')lb.textContent=t.profile;});const pLang=document.getElementById('p-lang');if(pLang)pLang.textContent=S.langCode==='en'?'English':'Português';const pTheme=document.getElementById('p-theme');if(pTheme)pTheme.textContent=S.themeMode==='dark'?t.themeDark:S.themeMode==='light'?t.themeLight:t.themeAuto;document.getElementById('lang-pt')?.classList.toggle('on',S.langCode!=='en');document.getElementById('lang-en')?.classList.toggle('on',S.langCode==='en');['light','dark','auto'].forEach(m=>document.getElementById('theme-'+m)?.classList.toggle('on',S.themeMode===m));localizeElementText();}
+function setLanguage(code){S.langCode=code;S.lang=code==='en'?'English':'Português';S.languageChosen=true;saveState();nav(document.querySelector('.scr.on')?.id||'s-dash');applyLanguage();}
+function setThemeMode(mode){S.themeMode=mode;S.themeChosen=true;saveState();applyTheme();renderProfile();}
+function logout(){saveState();document.querySelectorAll('#s-register input,#s-login input').forEach(i=>i.value='');go('s-splash');}
+setInterval(()=>{if(S.themeMode==='auto')applyTheme();},60000);
+
+
+/* ══════════════════════════════════════════════
+   CHARACTER DATA
+══════════════════════════════════════════════ */
+const CHARS = {
+  Ana:   {emoji:'👩🏾', role:'Vendedora no Mercado Xiquelene, Maputo', savings:[1800,2200,2600,3100], lvl:[2,3,4,5], xp:[180,260,370,440]},
+  Carlos:{emoji:'🚌',  role:'Motorista de Chapa, Maputo',              savings:[1200,1600,2000,2400], lvl:[1,2,3,4], xp:[80,160,240,360]},
+  Fátima:{emoji:'👩‍🎓', role:'Estudante Universitária, ISUTC',            savings:[500,800,1200,1600],  lvl:[1,2,2,3], xp:[50,130,210,330]},
+  João:  {emoji:'🌾',  role:'Agricultor em Gaza',                      savings:[3000,4500,6000,8000], lvl:[3,4,5,6], xp:[310,490,720,980]}
+};
+
+function randomCharStats(char){
+  const d=CHARS[char], i=Math.floor(Math.random()*4);
+  return {savings:d.savings[i], lvl:d.lvl[i], xp:d.xp[i]};
+}
+
+/* ══════════════════════════════════════════════
+   XITIQUE DATA
+══════════════════════════════════════════════ */
+const XI_MEMBERS = {
+  Ana:  [{em:'👩',n:'Ana (Tu)',st:'paid',recv:true},{em:'👩🏾',n:'Lurdes',st:'next'},{em:'👩🏿',n:'Graça',st:'late',late:2},{em:'👧',n:'Sónia',st:'paid'},{em:'👩‍🦱',n:'Beatriz',st:'wait'},{em:'👴',n:'Custódio',st:'paid',recv:true},{em:'👩‍🦳',n:'Felizarda',st:'wait'},{em:'👦',n:'Mário',st:'paid',recv:true}],
+  Carlos:[{em:'🧔',n:'Carlos (Tu)',st:'paid',recv:true},{em:'👨🏾',n:'Abílio',st:'next'},{em:'👩',n:'Conceição',st:'paid'},{em:'👴',n:'Germano',st:'late',late:1},{em:'👨‍🦱',n:'Nilton',st:'wait'},{em:'👩🏿',n:'Esperança',st:'paid',recv:true}],
+  Fátima:[{em:'👩‍🎓',n:'Fátima (Tu)',st:'wait'},{em:'👨‍🎓',n:'Hélder',st:'paid',recv:true},{em:'👩🏾',n:'Inês',st:'next'},{em:'👨🏿',n:'Jacinto',st:'late',late:1},{em:'👩',n:'Kátia',st:'paid'},{em:'👦',n:'Leandro',st:'wait'}],
+  João:  [{em:'🌾',n:'João (Tu)',st:'paid',recv:true},{em:'👩',n:'Maria',st:'paid'},{em:'👴',n:'Albino',st:'next'},{em:'👩🏾',n:'Dina',st:'late',late:2},{em:'👨‍🦳',n:'Ernesto',st:'paid',recv:true},{em:'👩🏿',n:'Filipa',st:'wait'},{em:'👦',n:'Gerson',st:'paid'}]
+};
+const XI_AMOUNTS={Ana:500,Carlos:400,Fátima:250,João:1500};
+const XI_CYCLES={Ana:8,Carlos:6,Fátima:6,João:7};
+const XI_TURNS={Ana:5,Carlos:3,Fátima:2,João:4};
+
+/* ══════════════════════════════════════════════
+   MISSIONS DATA
+══════════════════════════════════════════════ */
+const MISSIONS = {
+  Ana:[
+    {ic:'🛡️',t:'O Agente Suspeito',s:'Um estranho quer o teu PIN M-Pesa...',xp:50,diff:'Fácil',qkey:'fraudes',
+     ctx:'Acabaste de vender capulanas no Xiquelene e tens 3.000 MT. Um homem diz:',quote:'"Mana, sou agente M-Pesa. Dá-me o SIM e PIN por 5 minutos — oferta especial Vodacom!"',
+     choices:[{em:'📱',t:'Dar o SIM e PIN — parece legítimo',xp:0,type:'bad',tip:'GOLPE! Agentes M-Pesa nunca pedem o teu SIM ou PIN. Reporta ao 84111.'},
+              {em:'🤔',t:'Pedir cartão de identificação primeiro',xp:20,type:'mid',tip:'Boa cautela, mas documentos podem ser falsos. A regra é: ninguém pede o PIN, jamais!'},
+              {em:'🛡️',t:'Recusar — agentes nunca pedem SIM nem PIN!',xp:50,type:'best',tip:'Correcto! O M-Pesa NUNCA pede o teu PIN. Recusa e reporta ao 84111.'}]},
+    {ic:'💵',t:'O Salário de Outubro',s:'Como distribuir os 5.000 MT do mês?',xp:60,diff:'Fácil',qkey:'orçamento',
+     ctx:'Recebeste 5.000 MT. Gastos fixos: renda 1.500, comida 1.200, transporte 600. Dívida pendente: 500 MT.',quote:'O que fazes com o restante 1.200 MT?',
+     choices:[{em:'🎉',t:'Gastar tudo — mereces! Poupas no próximo mês',xp:0,type:'bad',tip:'Adiar poupança cria um ciclo perigoso. Mesmo 200 MT/mês acumulam muito!'},
+              {em:'💸',t:'Pagar metade da dívida e guardar o resto em casa',xp:25,type:'mid',tip:'Pagar parte da dívida é bom, mas dinheiro em casa gasta-se facilmente!'},
+              {em:'📊',t:'Pagar a dívida (500 MT) e poupar o resto no M-Pesa',xp:60,type:'best',tip:'Perfeito! Pagar dívidas mantém a tua reputação e poupar no M-Pesa cria histórico!'}]},
+    {ic:'📱',t:'Receber por M-Pesa na Banca',s:'Uma cliente quer pagar via M-Pesa',xp:70,diff:'Médio',qkey:'mpesa',
+     ctx:'Uma cliente quer pagar 800 MT pela capulana por M-Pesa. É a primeira vez que recebes assim.',quote:'Qual é o processo correcto para receber?',
+     choices:[{em:'❌',t:'Recusar — não confio em dinheiro digital',xp:0,type:'bad',tip:'Recusar pagamentos digitais perde clientes! O M-Pesa é seguro e confirmado instantaneamente.'},
+              {em:'🤷',t:'Dar o número e esperar sem verificar',xp:30,type:'mid',tip:'Receber é correcto, mas SEMPRE verifica o SMS de confirmação antes de entregar a mercadoria!'},
+              {em:'📲',t:'Dar o número, aguardar SMS de confirmação, depois entregar',xp:70,type:'best',tip:'Perfeito! Só entregues a mercadoria DEPOIS de receber o SMS "Recebeu X MT de Y". Nunca antes!'}]},
+    {ic:'📊',t:'Orçamento da Banca',s:'Planear as compras de stock do mês',xp:80,diff:'Médio',qkey:'orçamento',
+     ctx:'A tua banca vendeu 8.000 MT este mês. Compras de stock custaram 5.500 MT. Queres expandir o negócio.',quote:'Como usas os 2.500 MT de margem?',
+     choices:[{em:'🛍️',t:'Comprar mais stock imediatamente com tudo',xp:20,type:'mid',tip:'Reinvestir é bom, mas sem reserva de emergência qualquer imprevisto pode fechar o negócio!'},
+              {em:'💰',t:'Guardar tudo em casa até decidir',xp:0,type:'bad',tip:'Dinheiro em casa não cresce e pode ser perdido. Usa o M-Pesa para guardar e planear!'},
+              {em:'📈',t:'Separar: 1.500 MT stock + 1.000 MT poupança de emergência',xp:80,type:'best',tip:'Excelente! Reinvestir parte e guardar outra é o equilíbrio perfeito de um negócio saudável!'}]},
+    {ic:'🎣',t:'O Empréstimo Rápido',s:'Uma oferta suspeita de crédito fácil',xp:100,diff:'Difícil',qkey:'fraudes',
+     ctx:'Alguém online oferece: "Empréstimo 10.000 MT hoje! Sem banco. Envias 500 MT de taxa primeiro."',quote:'O que fazes?',
+     choices:[{em:'💸',t:'Enviar os 500 MT — preciso do dinheiro',xp:0,type:'bad',tip:'GOLPE CLÁSSICO! Nunca pagares taxa antecipada para receber empréstimo. É sempre fraude!'},
+              {em:'🤔',t:'Pedir mais detalhes antes de enviar',xp:30,type:'mid',tip:'Precaução é boa, mas o golpista tem respostas prontas. Regra: nunca pagares para receber!'},
+              {em:'🗑️',t:'Recusar e reportar ao 84111',xp:100,type:'best',tip:'Correcto! Taxa antecipada = golpe garantido. Procura microfinanceiras licenciadas pelo BM!'}]},
+    {ic:'🌱',t:'Meta de Poupança',s:'Poupar para expandir a banca',xp:90,diff:'Médio',qkey:'poupança',
+     ctx:'Queres ter uma banca maior em 1 ano. Precisas de 15.000 MT para stock inicial.',quote:'Qual é a melhor estratégia de poupança?',
+     choices:[{em:'😴',t:'Esperar ter mais dinheiro para começar a poupar',xp:0,type:'bad',tip:'O momento ideal raramente chega. 1.250 MT/mês durante 12 meses = 15.000 MT!'},
+              {em:'💰',t:'Poupar quando sobrar dinheiro no fim do mês',xp:30,type:'mid',tip:'Poupar sobras funciona, mas é irregular. O método "paga-te primeiro" é muito mais eficaz!'},
+              {em:'📅',t:'Separar 1.250 MT PRIMEIRO assim que receber, todos os meses',xp:90,type:'best',tip:'Perfeito! "Paga-te primeiro" — antes de qualquer despesa. Em 12 meses tens os 15.000 MT!'}]},
+    {ic:'🏦',t:'Criar o Xitique Digital',s:'Organizar poupança em grupo com as amigas',xp:80,diff:'Médio',qkey:'xitique',
+     ctx:'Tens 7 amigas no bairro. Cada uma pode poupar 500 MT/mês. Querem fazer um Xitique.',quote:'Qual a melhor forma de organizar?',
+     choices:[{em:'💰',t:'Uma pessoa fica com todo o dinheiro em casa',xp:0,type:'bad',tip:'Concentrar o dinheiro numa pessoa cria risco de fraude e conflitos sérios!'},
+              {em:'📋',t:'Acordo verbal entre amigas — a amizade garante',xp:25,type:'mid',tip:'Amizade ajuda, mas acordos verbais criam conflitos. Um sistema digital protege as amizades!'},
+              {em:'📱',t:'Usar o Txigital — Xitique Digital via M-Pesa com regras claras',xp:80,type:'best',tip:'Perfeito! Transparência total, registos automáticos e dinheiro seguro para todas!'}]},
+    {ic:'🔐',t:'Segurança no M-Pesa',s:'Desafio avançado de protecção da conta',xp:120,diff:'Expert',qkey:'fraudes',
+     ctx:'Recebes SMS: "Parabéns! Ganhou 50.000 MT M-Pesa. Confirme PIN respondendo: PIN: ____"',quote:'O que fazes?',
+     choices:[{em:'📩',t:'Responder com o PIN — M-Pesa é de confiança!',xp:0,type:'bad',tip:'PHISHING! O M-Pesa NUNCA pede PIN por SMS. Apaga e reporta!'},
+              {em:'📞',t:'Ligar à Vodacom para confirmar se é real',xp:40,type:'mid',tip:'Bom instinto! Mas a Vodacom vai confirmar que é fraude. A regra é mais simples: M-Pesa nunca pede PIN!'},
+              {em:'🗑️',t:'Apagar e reportar ao 84111',xp:120,type:'best',tip:'Expert! M-Pesa nunca pede PINs por SMS. Partilha esta dica com toda a família!'}]}
+  ],
+  Carlos:[
+    {ic:'⛽',t:'O Combustível do Mês',s:'Gerir as despesas variáveis do chapa',xp:60,diff:'Fácil',qkey:'orçamento',
+     ctx:'Gastas 1.500 MT/mês em combustível e ganhas em média 8.000 MT. Outubro foi fraco — só 6.000 MT.',quote:'Como ajustas o orçamento num mês fraco?',
+     choices:[{em:'😰',t:'Cortar na comida para pagar o combustível',xp:0,type:'bad',tip:'Nunca sacrifiques saúde por negócio! Reduz rotas menos rentáveis e optimiza percursos.'},
+              {em:'💸',t:'Usar as poupanças para cobrir a diferença',xp:30,type:'mid',tip:'Usar poupanças é uma opção, mas para isso elas devem existir! Cria um fundo de emergência.'},
+              {em:'📊',t:'Reduzir rotas longas, usar fundo de emergência',xp:60,type:'best',tip:'Correcto! Optimizar rotas + reserva de emergência é o plano de um motorista inteligente!'}]},
+    {ic:'🛡️',t:'O Passageiro Suspeito',s:'Um passageiro pede para trocar dinheiro',xp:70,diff:'Médio',qkey:'fraudes',
+     ctx:'Um passageiro diz: "Tenho 2.000 MT em notas grandes. Podes trocar pelo teu M-Pesa? Eu envio-te e tu dás-me o dinheiro."',quote:'O que fazes?',
+     choices:[{em:'🤝',t:'Aceitar — parece uma transação simples',xp:0,type:'bad',tip:'GOLPE! Pode enviar dinheiro roubado ou usar uma conta falsa. Nunca faças troco de dinheiro digital!'},
+              {em:'🤔',t:'Verificar se o passageiro parece de confiança',xp:20,type:'mid',tip:'Aparência não garante honestidade. A regra é não fazer este tipo de troca com desconhecidos!'},
+              {em:'🚫',t:'Recusar educadamente — não faço trocas no chapa',xp:70,type:'best',tip:'Correcto! Trocar dinheiro com estranhos expõe-te a vários tipos de fraude. Proteges-te bem!'}]},
+    {ic:'📱',t:'Pagar Combustível por M-Pesa',s:'Abandonar o dinheiro físico nas paragens',xp:80,diff:'Médio',qkey:'mpesa',
+     ctx:'A bomba de combustível passou a aceitar M-Pesa. O teu colega prefere continuar com dinheiro físico.',quote:'Qual é a melhor opção para ti?',
+     choices:[{em:'💵',t:'Continuar com dinheiro físico — mais fácil',xp:0,type:'bad',tip:'Dinheiro físico no chapa atrai roubos e é mais difícil de controlar. M-Pesa é mais seguro!'},
+              {em:'📱',t:'Usar M-Pesa apenas às vezes quando não tenho troco',xp:25,type:'mid',tip:'Boa transição! Mas usar M-Pesa sempre dá-te registos de todas as despesas automaticamente.'},
+              {em:'💳',t:'Mudar totalmente para M-Pesa — mais seguro e com registo',xp:80,type:'best',tip:'Excelente! Sem dinheiro físico no chapa = menos risco de roubo + registo automático de gastos!'}]},
+    {ic:'🚗',t:'Poupar para o Chapa Próprio',s:'Meta de 3 anos para ter o próprio veículo',xp:100,diff:'Difícil',qkey:'poupança',
+     ctx:'Um chapa usado custa 350.000 MT. Actualmente alugas um por 3.000 MT/mês. Ganhas 8.000 MT/mês.',quote:'Qual é o plano de poupança realista?',
+     choices:[{em:'😔',t:'Impossível — nunca conseguirei juntar tanto',xp:0,type:'bad',tip:'Impossível é uma palavra forte! 2.000 MT/mês × 36 meses = 72.000 MT. Com Xitique chega-se mais rápido!'},
+              {em:'💰',t:'Poupar quando sobrar no fim do mês',xp:30,type:'mid',tip:'Poupar sobras é inconsistente. Define um valor fixo mensal e automatiza a poupança no M-Pesa!'},
+              {em:'📅',t:'Poupar 2.000 MT fixos/mês + Xitique com colegas',xp:100,type:'best',tip:'Estratégia inteligente! Em 3 anos com poupança regular + Xitique do grupo atinges a meta!'}]},
+    {ic:'📊',t:'Orçamento de Renda Variável',s:'Como planear com ganhos que mudam cada dia',xp:90,diff:'Difícil',qkey:'orçamento',
+     ctx:'Em Janeiro ganhas 10.000 MT, em Fevereiro 6.000 MT. As despesas fixas são sempre 4.500 MT.',quote:'Como crias um orçamento estável com renda variável?',
+     choices:[{em:'🎉',t:'Gastar mais nos meses bons e ajustar nos fracos',xp:15,type:'mid',tip:'Gastar mais nos meses bons cria dependência de renda alta. Estabilidade exige disciplina constante!'},
+              {em:'😰',t:'Não é possível ter orçamento com renda variável',xp:0,type:'bad',tip:'É possível! Usa a média dos últimos 6 meses como base do orçamento. Meses bons = poupança extra!'},
+              {em:'📈',t:'Calcular média mensal e usar como base fixa do orçamento',xp:90,type:'best',tip:'Perfeito! Média de 8.000 MT → orçamento base. Meses acima da média vão directo para poupança!'}]},
+    {ic:'🎣',t:'Empréstimo para Reparação',s:'O chapa precisa de reparação urgente',xp:80,diff:'Médio',qkey:'xitique',
+     ctx:'O chapa avariou e a reparação custa 15.000 MT. Não tens todo o dinheiro. Tens 2 opções: banco (15% juro) ou Xitique do grupo.',quote:'Qual é a melhor opção?',
+     choices:[{em:'🏦',t:'Banco — mais formal e seguro',xp:25,type:'mid',tip:'Banco é formal, mas 15% de juro = mais 2.250 MT extra a pagar. O Xitique pode ser mais barato!'},
+              {em:'💸',t:'Pedir emprestado a qualquer pessoa rapidamente',xp:0,type:'bad',tip:'Empréstimos informais sem regras claras criam conflitos. Sempre formaliza qualquer empréstimo!'},
+              {em:'🏦',t:'Usar o Xitique do grupo — sem juros, com confiança',xp:80,type:'best',tip:'Excelente! O Xitique do grupo resolve a emergência sem juros bancários. É para isso que existe!'}]},
+    {ic:'🔐',t:'Segurança no Trabalho',s:'Proteger os ganhos diários do chapa',xp:70,diff:'Médio',qkey:'fraudes',
+     ctx:'No fim do dia tens 800 MT em dinheiro físico no chapa. É perigoso andar com tanto dinheiro.',quote:'Como proteges os teus ganhos diários?',
+     choices:[{em:'🏠',t:'Guardar em casa numa caixa escondida',xp:15,type:'mid',tip:'Em casa é mais seguro que no chapa, mas continua vulnerável. Deposita regularmente no M-Pesa!'},
+              {em:'👜',t:'Continuar com dinheiro físico no chapa',xp:0,type:'bad',tip:'Dinheiro físico no chapa atrai riscos de roubo. Deposita no M-Pesa diariamente!'},
+              {em:'📱',t:'Depositar no M-Pesa diariamente no fim do turno',xp:70,type:'best',tip:'Hábito de ouro! Depositar diariamente no M-Pesa protege os teus ganhos e cria histórico!'}]},
+    {ic:'🌱',t:'Fundo de Emergência',s:'Preparar-se para imprevistos do negócio',xp:110,diff:'Expert',qkey:'poupança',
+     ctx:'O teu chapa pode avariar a qualquer momento. Uma reparação grande pode custar 20.000 MT.',quote:'Como crias um fundo de emergência eficaz?',
+     choices:[{em:'😴',t:'Pensar nisso quando acontecer — agora está bem',xp:0,type:'bad',tip:'Imprevistos não avisam! Sem fundo de emergência, uma avaria pode parar o negócio por meses.'},
+              {em:'💰',t:'Guardar o que sobrar em casa para emergências',xp:35,type:'mid',tip:'Boa intenção, mas em casa gasta-se! Separa uma conta M-Pesa só para emergências.'},
+              {em:'🎯',t:'Separar 1.000 MT/mês numa conta M-Pesa separada',xp:110,type:'best',tip:'Expert! Em 20 meses tens 20.000 MT protegidos. Uma conta separada evita tentação de gastar!'}]}
+  ],
+  Fátima:[
+    {ic:'📚',t:'O Orçamento da Bolsa',s:'Gerir 3.500 MT/mês de forma inteligente',xp:50,diff:'Fácil',qkey:'orçamento',
+     ctx:'A tua bolsa é 3.500 MT/mês. Propinas: 500 MT. Comida: 1.200 MT. Transporte: 300 MT.',quote:'Como usas os 1.500 MT restantes?',
+     choices:[{em:'🎉',t:'Gastar em lazer — és jovem, aproveita!',xp:0,type:'bad',tip:'Lazer é importante, mas sem poupança qualquer emergência académica será um problema!'},
+              {em:'📖',t:'Guardar 500 MT e usar o resto em material escolar',xp:25,type:'mid',tip:'Bom equilíbrio entre necessidades e poupança. Mas 500 MT/mês pode ser insuficiente para emergências!'},
+              {em:'💰',t:'Poupar 800 MT no M-Pesa e 700 MT para material + lazer',xp:50,type:'best',tip:'Excelente gestão! 800 MT/mês × 12 = 9.600 MT/ano. Pagas um semestre sem preocupações!'}]},
+    {ic:'⚠️',t:'A Oportunidade de Investimento',s:'Uma promessa de duplicar o dinheiro',xp:80,diff:'Médio',qkey:'fraudes',
+     ctx:'Um colega diz: "Investimento garantido! Metes 5.000 MT e em 30 dias recebes 10.000 MT!"',quote:'O que fazes?',
+     choices:[{em:'💸',t:'Investir — retorno de 100% em 30 dias parece óptimo!',xp:0,type:'bad',tip:'GOLPE PIRÂMIDE! Retornos impossíveis (100% em 30 dias) são sempre fraude. Nunca invistas assim!'},
+              {em:'🤔',t:'Pedir mais informações e pensar durante uns dias',xp:30,type:'mid',tip:'Precaução é boa, mas o golpista tem respostas para tudo. Retornos de 100% em 30 dias = sempre golpe!'},
+              {em:'🛡️',t:'Recusar — retornos de 100% em 30 dias são sempre golpe',xp:80,type:'best',tip:'Correcto! Investimentos legítimos nunca prometem retornos garantidos absurdos. Investe só em instituições licenciadas!'}]},
+    {ic:'📱',t:'Pagar Propinas por M-Pesa',s:'Aprender a usar pagamentos digitais na ISUTC',xp:70,diff:'Fácil',qkey:'mpesa',
+     ctx:'A ISUTC passou a aceitar pagamento de propinas por M-Pesa. É mais fácil do que ir ao banco.',quote:'Qual é o processo correcto?',
+     choices:[{em:'🏦',t:'Continuar a ir ao banco — mais seguro',xp:15,type:'mid',tip:'Banco funciona, mas M-Pesa é mais rápido, sem filas e com comprovativo instantâneo!'},
+              {em:'📱',t:'Pagar por M-Pesa sem verificar o número da ISUTC primeiro',xp:20,type:'mid',tip:'M-Pesa é correcto, mas SEMPRE verifica o número oficial da ISUTC antes de pagar!'},
+              {em:'✅',t:'Verificar número oficial ISUTC no site, depois pagar por M-Pesa',xp:70,type:'best',tip:'Perfeito! Verificar o número oficial antes de pagar protege-te de fraudes. Guarda o número verificado!'}]},
+    {ic:'🎓',t:'Poupança para o Último Ano',s:'Preparar as despesas da tese e formatura',xp:90,diff:'Difícil',qkey:'poupança',
+     ctx:'Faltam 2 anos para acabar o curso. A formatura e tese custam cerca de 8.000 MT no total.',quote:'Qual é a melhor estratégia de poupança?',
+     choices:[{em:'😔',t:'Pedir emprestado quando chegar a altura',xp:0,type:'bad',tip:'Empréstimos de última hora têm condições desfavoráveis. Planear antecipadamente é muito melhor!'},
+              {em:'💰',t:'Poupar só quando sobrar dinheiro da bolsa',xp:25,type:'mid',tip:'Poupar sobras é inconsistente. Com um plano fixo tens garantia de alcançar a meta!'},
+              {em:'📅',t:'Separar 340 MT/mês no M-Pesa durante 24 meses',xp:90,type:'best',tip:'Planeamento perfeito! 340 MT × 24 meses = 8.160 MT. A formatura está garantida sem stress!'}]},
+    {ic:'🏦',t:'Xitique dos Colegas',s:'Organizar poupança com colegas da universidade',xp:75,diff:'Médio',qkey:'xitique',
+     ctx:'5 colegas querem fazer um Xitique de 250 MT/mês cada. Alguns têm bolsas diferentes.',quote:'Como organizas o Xitique de forma justa?',
+     choices:[{em:'💸',t:'Todos contribuem igual independentemente da bolsa',xp:25,type:'mid',tip:'Contribuição igual pode ser injusta para quem tem bolsa menor. Adapta ao rendimento de cada um!'},
+              {em:'📋',t:'Acordo verbal no grupo de WhatsApp — serve de registo',xp:15,type:'mid',tip:'WhatsApp regista, mas um sistema dedicado como o Txigital é mais transparente e seguro!'},
+              {em:'📱',t:'Usar o Txigital com regras claras e M-Pesa para pagamentos',xp:75,type:'best',tip:'Excelente! Txigital garante transparência, pagamentos automáticos e registo de quem está em atraso!'}]},
+    {ic:'🎣',t:'O Email Suspeito',s:'Um "prémio académico" por email',xp:85,diff:'Médio',qkey:'fraudes',
+     ctx:'Recebes email: "Parabéns! Ganhou bolsa de 50.000 MT. Envie dados M-Pesa e PIN para receber."',quote:'O que fazes?',
+     choices:[{em:'📧',t:'Responder com os dados — pode ser mesmo real!',xp:0,type:'bad',tip:'PHISHING! Nunca partilhes dados M-Pesa ou PIN por email. Bolsas reais não funcionam assim!'},
+              {em:'🤔',t:'Encaminhar para colegas para ver se receberam igual',xp:20,type:'mid',tip:'Partilhar é bom para alertar, mas nunca respondas com dados. Reporta como phishing!'},
+              {em:'🗑️',t:'Apagar, reportar como phishing e alertar a secretaria da ISUTC',xp:85,type:'best',tip:'Perfeito! Reportar protege outros colegas. A ISUTC nunca pede dados financeiros por email!'}]},
+    {ic:'💳',t:'Vantagens do M-Pesa vs Dinheiro',s:'Comparar pagamentos digitais com dinheiro físico',xp:65,diff:'Fácil',qkey:'mpesa',
+     ctx:'Tens de escolher como receber a mesada dos pais: em dinheiro físico ou via M-Pesa.',quote:'Qual é a opção mais vantajosa para uma estudante?',
+     choices:[{em:'💵',t:'Dinheiro físico — posso ver e controlar melhor',xp:20,type:'mid',tip:'Dinheiro físico é tangível, mas sem registo automático gastas sem perceber onde foi!'},
+              {em:'🤷',t:'Tanto faz — é o mesmo dinheiro',xp:0,type:'bad',tip:'Não é o mesmo! M-Pesa tem registo de cada transacção, protecção contra roubo e seguro!'},
+              {em:'📱',t:'M-Pesa — registo automático, seguro e sem risco de roubo',xp:65,type:'best',tip:'Correcto! Com M-Pesa sabes exactamente onde gastas, o dinheiro está protegido e disponível 24h!'}]},
+    {ic:'🌱',t:'Começar a Poupar Cedo',s:'O poder dos hábitos financeiros na juventude',xp:100,diff:'Difícil',qkey:'poupança',
+     ctx:'Tens 21 anos. Um amigo diz "Ainda és nova para poupar." Outro diz "Começa agora, mesmo com pouco."',quote:'Quem tem razão? Como deves agir?',
+     choices:[{em:'😴',t:'Concordar com o primeiro — ainda há muito tempo',xp:0,type:'bad',tip:'O tempo é o maior aliado da poupança! 200 MT/mês durante 10 anos = mais de 30.000 MT!'},
+              {em:'💰',t:'Começar só quando tiver emprego fixo',xp:25,type:'mid',tip:'Emprego fixo melhora a poupança, mas esperar cria o hábito de não poupar. Começa AGORA com pouco!'},
+              {em:'🎯',t:'Começar agora com 200 MT/mês — hábito é o mais importante',xp:100,type:'best',tip:'Expert! O hábito de poupar vale mais que o valor. 200 MT/mês cria disciplina que dura toda a vida!'}]}
+  ],
+  João:[
+    {ic:'🌾',t:'A Colheita do Milho',s:'Gerir 15.000 MT da colheita de forma inteligente',xp:70,diff:'Fácil',qkey:'poupança',
+     ctx:'A colheita rendeu 15.000 MT. Tens 6 meses até à próxima colheita e despesas mensais de 1.500 MT.',quote:'Como distribuis o dinheiro da colheita?',
+     choices:[{em:'🎉',t:'Gastar livremente — mereceste depois de tanto trabalho!',xp:0,type:'bad',tip:'Sem plano, o dinheiro acaba antes da próxima colheita! Planeia os 6 meses com antecedência.'},
+              {em:'💰',t:'Guardar tudo em casa até precisar',xp:20,type:'mid',tip:'Guardar é bom, mas em casa perde-se facilmente. Usa M-Pesa para guardar com segurança!'},
+              {em:'📊',t:'Separar: 9.000 MT despesas + 4.000 MT sementes + 2.000 MT poupança',xp:70,type:'best',tip:'Planeamento perfeito! Cobres os 6 meses, investes na próxima colheita e ainda poupas!'}]},
+    {ic:'🌧️',t:'Preparação para Seca',s:'Criar reserva para anos de má colheita',xp:90,diff:'Difícil',qkey:'poupança',
+     ctx:'Este ano a colheita foi boa, mas há risco de seca no próximo ano. O que fazes com o excedente?',quote:'Como te preparas para um ano difícil?',
+     choices:[{em:'😔',t:'Não há nada a fazer — depende da chuva',xp:0,type:'bad',tip:'Há sempre algo a fazer! Uma reserva financeira pode salvar a família num ano difícil.'},
+              {em:'💸',t:'Investir tudo em mais terra — maximizar produção',xp:25,type:'mid',tip:'Investir em terra é bom, mas sem reserva financeira um ano seco pode ser devastador!'},
+              {em:'🌧️',t:'Guardar 30% da colheita boa como reserva no M-Pesa',xp:90,type:'best',tip:'Sabedoria! 30% de reserva garante sobrevivência num ano seco. O M-Pesa guarda com segurança!'}]},
+    {ic:'🛡️',t:'O Comprador Suspeito',s:'Um comprador promete pagar depois de levar a colheita',xp:80,diff:'Médio',qkey:'fraudes',
+     ctx:'Um comprador desconhecido quer levar 500 kg de feijão agora e pagar "assim que vender em Maputo".',quote:'Como proteges a tua colheita?',
+     choices:[{em:'🤝',t:'Confiar — parece uma pessoa honesta',xp:0,type:'bad',tip:'Aparência não garante pagamento! Sem pagamento ou garantia, podes perder toda a colheita!'},
+              {em:'🤔',t:'Pedir contacto e NBI antes de entregar',xp:30,type:'mid',tip:'Bom! Mas contactos e NBI podem ser falsos. Pagamento antecipado ou M-Pesa é a única garantia!'},
+              {em:'💰',t:'Exigir pagamento total por M-Pesa antes de entregar',xp:80,type:'best',tip:'Correcto! Pagamento antecipado via M-Pesa é a única garantia segura. Nunca entregas sem pagar!'}]},
+    {ic:'📱',t:'M-Pesa no Campo',s:'Usar pagamentos digitais na agricultura',xp:75,diff:'Médio',qkey:'mpesa',
+     ctx:'Vais comprar sementes na cidade mas não queres viajar com 8.000 MT em dinheiro físico.',quote:'Qual é a forma mais segura de levar o dinheiro?',
+     choices:[{em:'💵',t:'Levar o dinheiro físico bem escondido na roupa',xp:0,type:'bad',tip:'Dinheiro físico em viagem é risco de roubo! O M-Pesa viaja contigo em segurança.'},
+              {em:'🤝',t:'Pedir a um familiar para guardar e encontrar-te lá',xp:20,type:'mid',tip:'Melhor que físico, mas depende de terceiros. O M-Pesa dá independência total!'},
+              {em:'📲',t:'Usar o M-Pesa — dinheiro viaja no telemóvel em segurança',xp:75,type:'best',tip:'Perfeito! Com M-Pesa o teu dinheiro viaja contigo sem risco. Pagas directamente no fornecedor!'}]},
+    {ic:'🏦',t:'Xitique dos Agricultores',s:'Comprar tractor em grupo com os vizinhos',xp:100,diff:'Difícil',qkey:'xitique',
+     ctx:'Um tractor para a aldeia custa 200.000 MT. Sozinho não consegues, mas há 10 famílias interessadas.',quote:'Qual é a melhor forma de organizar a compra colectiva?',
+     choices:[{em:'💸',t:'Cada família junta dinheiro físico com o líder da aldeia',xp:20,type:'mid',tip:'Pode funcionar, mas sem registo transparente podem surgir conflitos. Sistema digital é mais seguro!'},
+              {em:'😔',t:'Impossível — nunca conseguimos juntar tanto',xp:0,type:'bad',tip:'10 famílias × 2.000 MT/mês × 10 meses = 200.000 MT! Com organização é completamente possível!'},
+              {em:'📱',t:'Usar Xitique Digital — registo transparente, pagamento M-Pesa',xp:100,type:'best',tip:'Estratégia vencedora! Transparência total para todas as famílias + pagamentos verificáveis!'}]},
+    {ic:'📊',t:'Orçamento da Época Agrícola',s:'Planear despesas da próxima época',xp:85,diff:'Difícil',qkey:'orçamento',
+     ctx:'A época de plantio começa em Novembro. Precisas: sementes 3.000 MT, adubos 2.500 MT, mão-de-obra 1.500 MT.',quote:'Como planeias o financiamento da época?',
+     choices:[{em:'💸',t:'Pedir empréstimo na altura — sempre há solução',xp:15,type:'mid',tip:'Empréstimos de última hora têm juros altos! Planear antecipadamente poupa muito dinheiro!'},
+              {em:'😔',t:'Usar o que sobrar da colheita anterior — se sobrar',xp:20,type:'mid',tip:'Depender de sobras é arriscado! Um fundo específico para a próxima época garante o plantio!'},
+              {em:'📅',t:'Separar 7.000 MT da colheita actual para a próxima época',xp:85,type:'best',tip:'Planeamento excelente! Separar o investimento da colheita actual garante a próxima época sem stress!'}]},
+    {ic:'🌱',t:'Vender Sem Intermediários',s:'Usar M-Pesa para vender directamente',xp:80,diff:'Médio',qkey:'mpesa',
+     ctx:'Normalmente vendes o feijão a um intermediário por 25 MT/kg. Em Maputo pagam 40 MT/kg directamente.',quote:'Como podes vender directamente e receber com segurança?',
+     choices:[{em:'🤷',t:'Continuar com o intermediário — é mais fácil',xp:20,type:'mid',tip:'Mais fácil mas 37% menos receita! Com M-Pesa podes receber directamente de compradores em Maputo!'},
+              {em:'💵',t:'Viajar a Maputo com a colheita e receber em dinheiro',xp:15,type:'mid',tip:'Viagem custosa e risco de dinheiro físico. M-Pesa recebe o pagamento sem tu saíres da aldeia!'},
+              {em:'📲',t:'Usar M-Pesa para receber de compradores directos em Maputo',xp:80,type:'best',tip:'Brilhante! M-Pesa liga-te directamente a compradores. 40 MT vs 25 MT/kg = 60% mais receita!'}]},
+    {ic:'🔐',t:'Golpe da Cooperativa',s:'Uma cooperativa suspeita pede dinheiro antecipado',xp:110,diff:'Expert',qkey:'fraudes',
+     ctx:'"Cooperativa Agrícola" online: "Garante o teu lugar pagando 3.000 MT de inscrição antecipada."',quote:'O que fazes?',
+     choices:[{em:'💸',t:'Pagar — cooperativas agrícolas são de confiança',xp:0,type:'bad',tip:'GOLPE! Cooperativas legítimas NUNCA pedem dinheiro antecipado por canais online sem verificação!'},
+              {em:'🤔',t:'Pesquisar mais sobre a cooperativa antes de pagar',xp:35,type:'mid',tip:'Boa cautela! Mas verifica sempre presencialmente ou através do MINAG — não só online!'},
+              {em:'✅',t:'Verificar no MINAG presencialmente antes de qualquer pagamento',xp:110,type:'best',tip:'Expert! Cooperativas legítimas estão registadas no MINAG. Verifica sempre presencialmente!'}]}
+  ]
+};
+
+/* ══════════════════════════════════════════════
+   ACADEMIA QUESTIONS
+══════════════════════════════════════════════ */
+const AC_THEMES = ['Poupança','Orçamento','Pagamentos Digitais','Prevenção de Fraudes','Reembolso de Empréstimos','Xitique','Vantagens Sem Dinheiro'];
+
+const AC_Q = {
+  Ana:{
+    'Poupança':[
+      {q:'Recebes 3.000 MT da venda. Quanto guardas PRIMEIRO antes de qualquer despesa?',choices:[{em:'😅',t:'Nada agora — depois logo se vê',xp:0,type:'bad'},{em:'💰',t:'100-200 MT — o que sobrar',xp:15,type:'mid'},{em:'🎯',t:'300-600 MT (10-20%) — a regra de ouro',xp:40,type:'best'}],tip:'A regra de ouro é poupar 10-20% ANTES de qualquer gasto. 300 MT/semana = 1.200 MT/mês!'},
+      {q:'Onde guardas as poupanças da banca para não as gastar?',choices:[{em:'🏠',t:'Numa caixa em casa',xp:10,type:'mid'},{em:'📱',t:'No M-Pesa numa conta separada',xp:40,type:'best'},{em:'🤝',t:'Com uma amiga de confiança',xp:0,type:'bad'}],tip:'Conta M-Pesa separada cria barreira psicológica contra o gasto e regista todo o histórico!'},
+      {q:'Qual é o melhor hábito de poupança para renda irregular como a tua?',choices:[{em:'📅',t:'Valor fixo todo o dia de mercado, sem falta',xp:40,type:'best'},{em:'💸',t:'Só poupar nos meses bons',xp:15,type:'mid'},{em:'😴',t:'Quando me lembro',xp:0,type:'bad'}],tip:'Consistência bate valor! 100 MT todos os dias de mercado = muito mais do que 1.000 MT esporádicos.'},
+      {q:'Em 5 anos queres abrir uma loja. Precisas de 80.000 MT. Quanto poupas por mês?',choices:[{em:'😔',t:'Impossível com o meu rendimento',xp:0,type:'bad'},{em:'💭',t:'Poupar quando der',xp:10,type:'mid'},{em:'📊',t:'1.350 MT/mês — cálculo simples: 80k÷60meses',xp:40,type:'best'}],tip:'80.000 ÷ 60 meses = 1.333 MT/mês. Uma meta clara + plano = sonho realizável!'},
+    ],
+    'Orçamento':[
+      {q:'A tua banca vendeu 8.000 MT mas os custos foram 5.200 MT. Qual é o teu lucro real?',choices:[{em:'🤷',t:'Não sei calcular',xp:0,type:'bad'},{em:'💭',t:'Qualquer coisa entre 2.000-3.000 MT',xp:10,type:'mid'},{em:'📊',t:'2.800 MT (8.000 - 5.200)',xp:40,type:'best'}],tip:'Lucro = Receita - Custos. Conhecer o lucro real é o primeiro passo para gerir bem o negócio!'},
+      {q:'O que é a Regra 50-30-20 aplicada ao teu negócio?',choices:[{em:'🤷',t:'Nunca ouvi falar',xp:0,type:'bad'},{em:'💭',t:'50% vendas, 30% stock, 20% poupança',xp:20,type:'mid'},{em:'🎯',t:'50% necessidades, 30% reinvestir, 20% poupar/emergência',xp:40,type:'best'}],tip:'50-30-20: metade para viver, 30% de volta ao negócio, 20% poupar. Uma fórmula simples que funciona!'},
+      {q:'Como separas as despesas pessoais das despesas da banca?',choices:[{em:'💭',t:'Misturo tudo — é o mesmo dinheiro',xp:0,type:'bad'},{em:'📒',t:'Registo num caderno',xp:20,type:'mid'},{em:'📱',t:'Duas contas M-Pesa separadas: pessoal e negócio',xp:40,type:'best'}],tip:'Misturar pessoal e negócio é o maior erro de vendedores! Contas separadas mostram claramente a saúde do negócio.'},
+    ],
+    'Pagamentos Digitais':[
+      {q:'Qual é a vantagem de aceitar M-Pesa na tua banca?',choices:[{em:'🤷',t:'Nenhuma — dinheiro físico é mais fácil',xp:0,type:'bad'},{em:'💭',t:'Aceitas clientes sem troco',xp:20,type:'mid'},{em:'📱',t:'Mais clientes + seguro + registo automático de vendas',xp:40,type:'best'}],tip:'M-Pesa na banca = mais clientes (sem troco), registo automático de vendas e dinheiro seguro!'},
+      {q:'Como verificas que um pagamento M-Pesa chegou antes de dar a mercadoria?',choices:[{em:'🤝',t:'Confiar no cliente — parece honesto',xp:0,type:'bad'},{em:'📞',t:'Ligar para o cliente para confirmar',xp:15,type:'mid'},{em:'📱',t:'Aguardar SMS de confirmação da Vodacom no teu telemóvel',xp:40,type:'best'}],tip:'O SMS de confirmação é a única prova! "Recebeu X MT de Y às HH:MM" — só então entregas!'},
+      {q:'O que fazes quando recebes pagamento errado (valor diferente)?',choices:[{em:'😔',t:'Fico com a diferença — o cliente errou',xp:0,type:'bad'},{em:'📞',t:'Ligar ao cliente e resolver entre nós',xp:20,type:'mid'},{em:'📱',t:'Devolver excesso via M-Pesa e confirmar com o cliente',xp:40,type:'best'}],tip:'Honestidade e rapidez! Devolver o excesso mantém a tua reputação e cria confiança duradoura!'},
+    ],
+    'Prevenção de Fraudes':[
+      {q:'Um "fiscal do M-Pesa" pede para verificar a tua conta no local. O que fazes?',choices:[{em:'🤝',t:'Mostrar o telemóvel — é um fiscal oficial',xp:0,type:'bad'},{em:'🤔',t:'Pedir identificação oficial primeiro',xp:20,type:'mid'},{em:'🛡️',t:'Recusar — não existe "fiscal do M-Pesa" que venha ter contigo',xp:40,type:'best'}],tip:'Não existe fiscal do M-Pesa! Qualquer pessoa que se apresente assim é golpista. Liga ao 84111.'},
+      {q:'Uma cliente paga 500 MT mas o SMS diz 50 MT. O que faças?',choices:[{em:'🤷',t:'O SMS pode estar errado — confio na cliente',xp:0,type:'bad'},{em:'📱',t:'Não entrego até o SMS mostrar o valor correcto',xp:40,type:'best'},{em:'💭',t:'Entregar e esperar pelo resto depois',xp:10,type:'mid'}],tip:'O SMS do M-Pesa nunca mente! Se diz 50 MT, recebeste 50 MT. Nunca entregas mercadoria sem SMS correcto!'},
+      {q:'Como identificas uma nota de 500 MT falsa no mercado?',choices:[{em:'🤷',t:'Aceitar — não sei identificar',xp:0,type:'bad'},{em:'👁️',t:'Verificar fio de segurança e marca d\'água',xp:30,type:'mid'},{em:'✅',t:'Usar caneta detectora + fio de segurança + marca d\'água',xp:40,type:'best'}],tip:'Notas reais têm: fio de segurança metálico, marca d\'água com retrato, e papel especial. Caneta detectora confirma!'},
+    ],
+    'Reembolso de Empréstimos':[
+      {q:'Pediste 5.000 MT emprestado a uma amiga. Qual é a melhor forma de pagar?',choices:[{em:'💸',t:'Pagar quando tiver jeito',xp:0,type:'bad'},{em:'📅',t:'Combinar valor fixo mensal e pagar por M-Pesa com comprovativo',xp:40,type:'best'},{em:'💭',t:'Pagar em produtos da banca',xp:15,type:'mid'}],tip:'Valor fixo + M-Pesa = registo automático e transparência total. Protege a amizade e a tua reputação!'},
+      {q:'Tens 3 dívidas: 2.000 MT a 0% juro (amiga), 3.000 MT a 5%/mês, 1.000 MT a 2%/mês. Qual pagas primeiro?',choices:[{em:'💭',t:'A mais pequena (1.000 MT) — fico logo livre',xp:20,type:'mid'},{em:'🎯',t:'A mais cara (5%/mês) — eliminar o maior juro primeiro',xp:40,type:'best'},{em:'💸',t:'Dividir igual pelas 3',xp:10,type:'mid'}],tip:'Método avalanche: paga primeiro a dívida com maior juro! 5%/mês = 60%/ano. É urgente eliminar primeiro!'},
+    ],
+    'Xitique':[
+      {q:'O que é um Xitique digital e como funciona?',choices:[{em:'🤷',t:'Uma app de jogos financeiros',xp:0,type:'bad'},{em:'💭',t:'Um banco para grupos',xp:15,type:'mid'},{em:'🏦',t:'Poupança rotativa em grupo via M-Pesa com transparência total',xp:40,type:'best'}],tip:'Xitique digital = poupança rotativa tradicional + segurança M-Pesa + transparência para todos os membros!'},
+      {q:'No Xitique, quando podes levantar o teu dinheiro?',choices:[{em:'💸',t:'Quando precisar urgentemente',xp:0,type:'bad'},{em:'📅',t:'No teu turno definido pelo grupo',xp:40,type:'best'},{em:'💭',t:'A qualquer momento com aprovação da maioria',xp:15,type:'mid'}],tip:'No Xitique, o dinheiro fica BLOQUEADO até ao teu turno. Isso protege todos os membros de urgências individuais!'},
+    ],
+    'Vantagens Sem Dinheiro':[
+      {q:'Quais são os 3 maiores riscos de ter muito dinheiro físico na banca?',choices:[{em:'🤷',t:'Não vejo riscos — dinheiro físico é sempre seguro',xp:0,type:'bad'},{em:'💭',t:'Roubo apenas',xp:15,type:'mid'},{em:'🎯',t:'Roubo + gasto fácil + sem registo de vendas',xp:40,type:'best'}],tip:'Dinheiro físico: risco de roubo, tentação de gastar, e sem histórico de transacções. M-Pesa resolve os 3!'},
+      {q:'Se aceitares M-Pesa na banca, como isso ajuda o teu negócio a crescer?',choices:[{em:'🤷',t:'Não ajuda — só complica',xp:0,type:'bad'},{em:'💭',t:'Aceitas mais clientes',xp:20,type:'mid'},{em:'📈',t:'Mais clientes + registo automático + base para crédito futuro',xp:40,type:'best'}],tip:'M-Pesa cria histórico de transacções que microfinanceiras usam para aprovar crédito. É o teu currículo financeiro!'},
+    ],
+  },
+  Carlos:{
+    'Poupança':[
+      {q:'Ganhas em média 300 MT/dia no chapa. Qual é a meta de poupança diária ideal?',choices:[{em:'😴',t:'Nada — as despesas são muitas',xp:0,type:'bad'},{em:'💭',t:'50 MT quando sobrar',xp:15,type:'mid'},{em:'🎯',t:'30-60 MT todo dia, sem falta',xp:40,type:'best'}],tip:'30-60 MT/dia parece pouco, mas 45 MT × 300 dias = 13.500 MT/ano. O hábito diário é poderoso!'},
+      {q:'Como usas os meses com mais corridas para poupar mais?',choices:[{em:'🎉',t:'Gastar mais — mereceste trabalhar tanto',xp:0,type:'bad'},{em:'💰',t:'Guardar 50% do extra imediatamente no M-Pesa',xp:40,type:'best'},{em:'💭',t:'Guardar um pouco mais que o normal',xp:20,type:'mid'}],tip:'Regra do extra: 50% do rendimento acima da média vai directo para poupança. Nunca aumentas o estilo de vida!'},
+      {q:'Qual é o objectivo principal do teu fundo de emergência como motorista?',choices:[{em:'🎉',t:'Para viagens de férias',xp:0,type:'bad'},{em:'🔧',t:'Cobrir reparações do chapa sem parar de trabalhar',xp:40,type:'best'},{em:'💭',t:'Comprar um chapa novo',xp:20,type:'mid'}],tip:'Fundo de emergência = segurança operacional. Uma avaria sem reserva pode parar o negócio semanas!'},
+    ],
+    'Orçamento':[
+      {q:'Como calculas o custo real por km percorrido no teu chapa?',choices:[{em:'🤷',t:'Não calculo — só olho ao lucro final',xp:0,type:'bad'},{em:'💭',t:'Dividir combustível pelas horas trabalhadas',xp:15,type:'mid'},{em:'📊',t:'(Combustível + manutenção + aluguer) ÷ km totais do mês',xp:40,type:'best'}],tip:'Custo por km = (combustível + manutenção + aluguer) ÷ km. Rotas com custo alto → avaliar alternativas!'},
+      {q:'O teu chapa tem despesas fixas e variáveis. Qual é a diferença?',choices:[{em:'🤷',t:'Não há diferença — são todas despesas',xp:0,type:'bad'},{em:'💭',t:'Fixas são maiores, variáveis são menores',xp:10,type:'mid'},{em:'🎯',t:'Fixas ocorrem sempre (aluguer); variáveis mudam (combustível, reparos)',xp:40,type:'best'}],tip:'Fixas = aluguer, seguro. Variáveis = combustível, reparações. Optimizar variáveis aumenta o lucro directamente!'},
+    ],
+    'Pagamentos Digitais':[
+      {q:'Passageiro quer pagar com M-Pesa mas nunca usaste para receber. O que fazes?',choices:[{em:'❌',t:'Recusar — só aceito dinheiro físico',xp:0,type:'bad'},{em:'📱',t:'Dar o meu número M-Pesa e confirmar quando chegar o SMS',xp:40,type:'best'},{em:'💭',t:'Aceitar mas sem verificar',xp:10,type:'mid'}],tip:'Número M-Pesa → passageiro envia → tu recebes SMS → confirma! Simples, rápido e sem troco necessário!'},
+      {q:'Quais os benefícios de pagar combustível por M-Pesa em vez de dinheiro?',choices:[{em:'🤷',t:'Nenhum — tanto faz',xp:0,type:'bad'},{em:'💭',t:'Mais fácil quando não tenho troco',xp:15,type:'mid'},{em:'✅',t:'Sem risco de roubo + registo de despesas + histórico financeiro',xp:40,type:'best'}],tip:'M-Pesa para combustível: sem dinheiro físico no chapa = segurança + registo automático para o orçamento!'},
+    ],
+    'Prevenção de Fraudes':[
+      {q:'Um passageiro pede troco de uma nota de 1.000 MT por uma corrida de 50 MT. O que verificas?',choices:[{em:'💸',t:'Dar o troco rapidamente — não quero discussão',xp:0,type:'bad'},{em:'👁️',t:'Verificar se a nota é autêntica antes de dar troco',xp:40,type:'best'},{em:'💭',t:'Verificar mas rapidamente sem muito cuidado',xp:20,type:'mid'}],tip:'Notas falsas de 500 MT e 1.000 MT são comuns. Sempre verifica o fio metálico e marca d\'água!'},
+      {q:'Alguém oferece "seguro especial" para o teu chapa por 500 MT/mês sem documentos. O que fazes?',choices:[{em:'💸',t:'Aceitar — parece mais barato que o normal',xp:0,type:'bad'},{em:'🤔',t:'Pedir mais informações antes de pagar',xp:20,type:'mid'},{em:'🛡️',t:'Recusar — seguros legítimos têm documentação oficial',xp:40,type:'best'}],tip:'Seguros sem documentação = golpe. Sempre exige apólice assinada, número de registo e empresa licenciada pelo IPSO!'},
+    ],
+    'Reembolso de Empréstimos':[
+      {q:'Pediste 20.000 MT ao banco para reparar o chapa, a 10%/ano. Quanto pagas no total?',choices:[{em:'💭',t:'22.000 MT',xp:40,type:'best'},{em:'🤷',t:'20.000 MT — só o que pedi',xp:0,type:'bad'},{em:'💸',t:'30.000 MT',xp:10,type:'mid'}],tip:'20.000 × 10% = 2.000 MT de juro anual. Total = 22.000 MT. Conhecer o custo total do crédito é fundamental!'},
+      {q:'Como organizas o pagamento mensal do empréstimo do banco para não atrasar?',choices:[{em:'😴',t:'Pago quando tiver dinheiro suficiente',xp:0,type:'bad'},{em:'📅',t:'Separar o valor da prestação logo que recebo a renda semanal',xp:40,type:'best'},{em:'💭',t:'Lembrar no fim do mês',xp:10,type:'mid'}],tip:'"Paga-te primeiro" aplica-se também a dívidas! Separa a prestação logo que recebes. Jamais mistura com o resto!'},
+    ],
+    'Xitique':[
+      {q:'Como convences os teus colegas motoristas a criar um Xitique para emergências?',choices:[{em:'😔',t:'Impossível — cada um tem a sua vida',xp:0,type:'bad'},{em:'💭',t:'Sugerir e ver quem se interessa',xp:20,type:'mid'},{em:'🎯',t:'Mostrar cálculo: 10 × 1.000 MT/mês = fundo de 120.000 MT/ano',xp:40,type:'best'}],tip:'Números convencem! 10 motoristas × 1.000 MT/mês = 120.000 MT/ano disponíveis para emergências do grupo!'},
+    ],
+    'Vantagens Sem Dinheiro':[
+      {q:'Ter menos dinheiro físico no chapa durante o trabalho tem que vantagens?',choices:[{em:'🤷',t:'Nenhuma — preciso do dinheiro em mãos',xp:0,type:'bad'},{em:'💭',t:'Menos risco de roubo',xp:20,type:'mid'},{em:'✅',t:'Menos risco de roubo + menos gasto impulsivo + melhor registo',xp:40,type:'best'}],tip:'Digitalizar os ganhos do chapa cria segurança física e disciplina financeira automática!'},
+    ],
+  },
+  Fátima:{
+    'Poupança':[
+      {q:'A tua bolsa é 3.500 MT/mês. Qual é o mínimo que deves poupar para ter fundo de emergência?',choices:[{em:'😴',t:'Nada — estudante não precisa de poupança',xp:0,type:'bad'},{em:'💭',t:'100 MT quando sobrar',xp:15,type:'mid'},{em:'🎯',t:'350-700 MT (10-20%) logo que receberes',xp:40,type:'best'}],tip:'Mesmo estudante deve poupar! 350 MT/mês × 12 = 4.200 MT. Um semestre de emergência protegido!'},
+      {q:'Qual é a maior armadilha financeira para estudantes universitários?',choices:[{em:'💭',t:'Pagar propinas com atraso',xp:20,type:'mid'},{em:'💳',t:'Crédito fácil + estilo de vida acima da bolsa',xp:40,type:'best'},{em:'😴',t:'Não estudar o suficiente',xp:0,type:'bad'}],tip:'Crédito fácil para estudantes (telemóveis, roupas) cria dívidas que duram anos após a formatura!'},
+      {q:'Como poupar para a formatura enquanto estudas?',choices:[{em:'😔',t:'Impossível com bolsa de estudante',xp:0,type:'bad'},{em:'💭',t:'Pedir ajuda aos pais na altura',xp:15,type:'mid'},{em:'📅',t:'334 MT/mês durante 2 anos = 8.000 MT garantidos',xp:40,type:'best'}],tip:'Matemática simples: 8.000 ÷ 24 meses = 334 MT/mês. Formatura paga sem stress!'},
+    ],
+    'Orçamento':[
+      {q:'Como divides 3.500 MT de bolsa usando a Regra 50-30-20?',choices:[{em:'🤷',t:'Não sei aplicar ao meu caso',xp:0,type:'bad'},{em:'💭',t:'Metade comida, resto em várias coisas',xp:15,type:'mid'},{em:'📊',t:'1.750 necessidades, 1.050 lazer, 700 poupança',xp:40,type:'best'}],tip:'50-30-20 para estudante: 1.750 MT (propinas+comida+transp), 1.050 MT (lazer+material), 700 MT poupança!'},
+      {q:'O que incluis obrigatoriamente num orçamento estudantil?',choices:[{em:'📖',t:'Propinas, comida, transporte, material, poupança emergência',xp:40,type:'best'},{em:'💭',t:'Propinas e comida — o resto é extra',xp:20,type:'mid'},{em:'😴',t:'Não preciso de orçamento — a bolsa é pequena',xp:0,type:'bad'}],tip:'Orçamento estudantil completo: propinas + comida + transporte + material + poupança 10%. Sem excepções!'},
+    ],
+    'Pagamentos Digitais':[
+      {q:'Como usas o M-Pesa para gerir a mesada dos pais de forma inteligente?',choices:[{em:'💵',t:'Pedir em dinheiro físico — mais fácil de controlar',xp:10,type:'mid'},{em:'📱',t:'Receber por M-Pesa e verificar histórico de gastos regularmente',xp:40,type:'best'},{em:'🤷',t:'Tanto faz — é sempre o mesmo valor',xp:0,type:'bad'}],tip:'M-Pesa mostra exactamente onde gastas! Histórico automático = conhecimento real dos teus hábitos!'},
+      {q:'Quais os serviços da ISUTC que já podes pagar por M-Pesa?',choices:[{em:'🤷',t:'Nenhum — universidades não aceitam',xp:0,type:'bad'},{em:'💭',t:'Só a cantina',xp:10,type:'mid'},{em:'📱',t:'Propinas, inscrições, fotocópias e alguns serviços administrativos',xp:40,type:'best'}],tip:'A ISUTC e muitas universidades já aceitam M-Pesa para vários serviços. Menos filas, mais comodidade!'},
+    ],
+    'Prevenção de Fraudes':[
+      {q:'Um colega oferece "investimento com 50% de retorno em 15 dias" para estudantes. É legítimo?',choices:[{em:'💸',t:'Parece uma boa oportunidade de multiplicar a bolsa',xp:0,type:'bad'},{em:'🤔',t:'Investigar mais antes de decidir',xp:20,type:'mid'},{em:'🛡️',t:'Não — é pirâmide financeira. Retornos garantidos são sempre golpe!',xp:40,type:'best'}],tip:'Pirâmides financeiras são comuns em universidades! Promessas de retorno garantido = sempre fraude!'},
+      {q:'Recebes mensagem: "Tua bolsa vai ser cancelada. Confirma dados M-Pesa urgente." O que fazes?',choices:[{em:'📱',t:'Responder urgentemente — não posso perder a bolsa!',xp:0,type:'bad'},{em:'🤔',t:'Ligar para os pais primeiro',xp:20,type:'mid'},{em:'✅',t:'Ir pessoalmente à secretaria da ISUTC verificar',xp:40,type:'best'}],tip:'Phishing de bolsas é comum! Nunca respondas por mensagem. Vai sempre pessoalmente verificar na fonte oficial!'},
+    ],
+    'Reembolso de Empréstimos':[
+      {q:'Pediste 10.000 MT emprestado à família para propinas urgentes. Como reembolsas responsavelmente?',choices:[{em:'😴',t:'Pagar quando tiver emprego — eles entendem',xp:0,type:'bad'},{em:'📅',t:'Combinar plano de pagamento fixo assim que começas a trabalhar',xp:40,type:'best'},{em:'💭',t:'Pagar o que puder quando lembrar',xp:10,type:'mid'}],tip:'Combina um plano ANTES de pegar o empréstimo! "Pagarei 1.000 MT/mês a partir de X" é profissional e honesto!'},
+    ],
+    'Xitique':[
+      {q:'Organizas um Xitique com 5 colegas de faculdade. Qual é a contribuição ideal para estudantes?',choices:[{em:'💸',t:'500 MT/mês cada — valor significativo',xp:20,type:'mid'},{em:'🎯',t:'150-250 MT/mês — acessível e consistente para bolsistas',xp:40,type:'best'},{em:'😔',t:'Estudantes não conseguem ter Xitique',xp:0,type:'bad'}],tip:'O valor deve ser sustentável para todos! 200 MT × 5 pessoas = 1.000 MT por turno. Perfeito para emergências!'},
+      {q:'Um colega falta ao pagamento do Xitique este mês. O que o grupo faz?',choices:[{em:'😔',t:'Expulsar imediatamente do grupo',xp:10,type:'mid'},{em:'🎯',t:'Contactar, entender a situação e definir prazo de regularização',xp:40,type:'best'},{em:'💸',t:'Ignorar e continuar sem ele',xp:0,type:'bad'}],tip:'Comunicação primeiro! Um sistema digital como o Txigital notifica automaticamente e regista atrasos com transparência!'},
+    ],
+    'Vantagens Sem Dinheiro':[
+      {q:'Pagar propinas por M-Pesa vs ir ao banco. Qual a principal vantagem para estudantes?',choices:[{em:'🤷',t:'Não há diferença real',xp:0,type:'bad'},{em:'💭',t:'Mais rápido',xp:20,type:'mid'},{em:'✅',t:'Sem filas + comprovativo imediato + disponível 24h + histórico digital',xp:40,type:'best'}],tip:'M-Pesa para propinas: sem filas, comprovativo instantâneo, disponível 24h. Tempo poupado = mais estudo!'},
+    ],
+  },
+  João:{
+    'Poupança':[
+      {q:'A colheita rendeu 20.000 MT. Qual % deves guardar para a próxima época de plantio?',choices:[{em:'😴',t:'Nada — reinvisto tudo para crescer',xp:0,type:'bad'},{em:'💭',t:'10% — igual a qualquer outro rendimento',xp:15,type:'mid'},{em:'🌾',t:'30-40% — para sementes, adubos e fundo de seca',xp:40,type:'best'}],tip:'Agricultor precisa de reserva maior! 30-40% cobre sementes + adubos + margem para ano seco!'},
+      {q:'Onde é mais seguro guardar o dinheiro da colheita durante os 6 meses até à próxima?',choices:[{em:'🏠',t:'Em casa num lugar seguro',xp:10,type:'mid'},{em:'📱',t:'No M-Pesa — seguro, acessível e com histórico',xp:40,type:'best'},{em:'🤝',t:'Com o líder da aldeia',xp:0,type:'bad'}],tip:'M-Pesa guarda por meses com segurança total. Em casa pode ser roubado, molhado ou gasto impulsivamente!'},
+      {q:'Como poupas de forma regular quando a renda é sazonal (só na colheita)?',choices:[{em:'😔',t:'É impossível poupar regularmente com renda sazonal',xp:0,type:'bad'},{em:'💭',t:'Poupar durante a colheita quando tenho muito',xp:20,type:'mid'},{em:'🎯',t:'Dividir colheita em 12 partes iguais + guardar 20% de cada parte',xp:40,type:'best'}],tip:'Dividir a colheita em "salários mensais" é o segredo! 20.000 ÷ 12 = 1.667 MT/mês para gerir.'},
+    ],
+    'Orçamento':[
+      {q:'Como calculas o custo real de produzir 1 kg de feijão na tua machamba?',choices:[{em:'🤷',t:'Não calculo — só olho ao que vendo',xp:0,type:'bad'},{em:'💭',t:'Valor das sementes dividido pela colheita',xp:15,type:'mid'},{em:'📊',t:'(Sementes + adubos + água + mão-de-obra) ÷ kg produzidos',xp:40,type:'best'}],tip:'Custo real = todas as despesas ÷ produção total. Se vendes abaixo do custo, estás a perder dinheiro!'},
+      {q:'Qual é o orçamento anual de um agricultor? Quais as 5 categorias principais?',choices:[{em:'🤷',t:'Não sei fazer orçamento anual',xp:0,type:'bad'},{em:'💭',t:'Sementes e comida familiar',xp:15,type:'mid'},{em:'🌾',t:'Sementes + adubos + mão-de-obra + despesas família + reserva de seca',xp:40,type:'best'}],tip:'Orçamento agrícola tem 5 pilares! A reserva de seca é o que diferencia um agricultor estável de um vulnerável!'},
+    ],
+    'Pagamentos Digitais':[
+      {q:'Como recebes pagamento de um comprador em Maputo sem viajar?',choices:[{em:'🚌',t:'Viajar a Maputo com a colheita para receber em mão',xp:10,type:'mid'},{em:'📱',t:'Combinar pagamento via M-Pesa antes de enviar a colheita',xp:40,type:'best'},{em:'🤝',t:'Confiar que paga depois de vender',xp:0,type:'bad'}],tip:'M-Pesa conecta-te a compradores em todo Moçambique! Recebe antes de enviar. Nunca entregas sem pagamento!'},
+      {q:'Um comprador em Nampula quer pagar 50.000 MT pela tua colheita. Qual é o processo seguro?',choices:[{em:'💵',t:'Receber em dinheiro físico quando entregar',xp:0,type:'bad'},{em:'📱',t:'Pedir 50% M-Pesa antes, 50% na entrega + registo',xp:40,type:'best'},{em:'💭',t:'Aceitar cheque do banco do comprador',xp:15,type:'mid'}],tip:'50% adiantado + 50% na entrega = protecção total. M-Pesa cria comprovativo imediato de cada pagamento!'},
+    ],
+    'Prevenção de Fraudes':[
+      {q:'Um "exportador" oferece 80 MT/kg pelo feijão mas pede 5.000 MT de "taxa de certificação" antecipada.',choices:[{em:'💸',t:'Pagar — 80 MT/kg é muito bom preço!',xp:0,type:'bad'},{em:'🤔',t:'Investigar mais antes de pagar',xp:20,type:'mid'},{em:'🛡️',t:'Recusar — exportadores legítimos nunca cobram taxa antecipada',xp:40,type:'best'}],tip:'GOLPE CLÁSSICO! Exportadores legítimos deduzem taxas da compra. Taxa antecipada = sempre fraude!'},
+      {q:'Como verificas se uma cooperativa agrícola é legítima antes de aderir?',choices:[{em:'💭',t:'Perguntar a colegas agricultores',xp:20,type:'mid'},{em:'✅',t:'Verificar registo no MINAG + visitar sede física + consultar membro actual',xp:40,type:'best'},{em:'💸',t:'Pagar a adesão e ver se funciona',xp:0,type:'bad'}],tip:'3 verificações: MINAG (registo oficial), sede física (existe mesmo?), membro actual (depoimento real)!'},
+    ],
+    'Reembolso de Empréstimos':[
+      {q:'Pediste 30.000 MT ao banco para comprar adubo, a pagar em 12 meses. Como planeias?',choices:[{em:'😴',t:'Pagar depois da próxima colheita — deve chegar',xp:15,type:'mid'},{em:'📅',t:'Separar 2.500 MT de cada mês da colheita antes de qualquer gasto',xp:40,type:'best'},{em:'💸',t:'Ver como corre e pagar quando puder',xp:0,type:'bad'}],tip:'2.500 MT × 12 = 30.000 MT. Separar primeiro garantias pagamento sem stress. Inclui no orçamento agrícola!'},
+    ],
+    'Xitique':[
+      {q:'10 agricultores querem comprar tractor colectivamente via Xitique. Como organizam?',choices:[{em:'💭',t:'Cada um guarda o dinheiro em casa até ter o suficiente',xp:0,type:'bad'},{em:'🤝',t:'Um líder guarda o dinheiro de todos',xp:10,type:'mid'},{em:'📱',t:'Xitique Digital: cada um contribui por M-Pesa, registo transparente para todos',xp:40,type:'best'}],tip:'Xitique Digital para compra colectiva: transparência total, ninguém pode usar o dinheiro dos outros!'},
+      {q:'Qual é a principal vantagem do Xitique digital vs Xitique tradicional com dinheiro físico?',choices:[{em:'🤷',t:'Não há diferença — o resultado é o mesmo',xp:0,type:'bad'},{em:'💭',t:'É mais fácil de organizar',xp:20,type:'mid'},{em:'✅',t:'Transparência total + impossível desviar fundos + registo automático para todos',xp:40,type:'best'}],tip:'Digital = transparência que protege amizades! Todos vêem todos os movimentos. Conflitos reduzem drasticamente!'},
+    ],
+    'Vantagens Sem Dinheiro':[
+      {q:'Como o uso do M-Pesa pode aumentar o teu poder de negociação com compradores?',choices:[{em:'🤷',t:'Não ajuda em negociação',xp:0,type:'bad'},{em:'💭',t:'Facilita pagamento mas nada mais',xp:15,type:'mid'},{em:'📈',t:'Histórico de transacções = prova de volume de negócios para crédito futuro',xp:40,type:'best'}],tip:'Histórico M-Pesa = currículo financeiro! Microfinanceiras usam isso para aprovar crédito para expansão da machamba!'},
+      {q:'Quais as 3 maiores vantagens de vender colheita via M-Pesa em vez de dinheiro físico?',choices:[{em:'💭',t:'Mais fácil para clientes distantes',xp:20,type:'mid'},{em:'✅',t:'Sem risco de roubo + comprovativo legal + acesso a compradores nacionais',xp:40,type:'best'},{em:'🤷',t:'Não vejo vantagens claras',xp:0,type:'bad'}],tip:'M-Pesa para colheita: segurança + prova legal + mercado nacional! Uma machamba pode chegar a Maputo sem sair de Gaza!'},
+    ],
+  }
+};
+
+/* ══════════════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════════════ */
+function go(id){
+  document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  applyLanguage();
+}
+function nav(id){
+  go(id);
+  if(id==='s-missions') renderMissions();
+  if(id==='s-xitique') renderXitique();
+  if(id==='s-academia') renderAcademia();
+  if(id==='s-profile') renderProfile();
+  if(id==='s-dash') renderDash();
+  applyLanguage();
+}
+
+/* ══════════════════════════════════════════════
+   REGISTER
+══════════════════════════════════════════════ */
+function doRegister(){
+  const n=document.getElementById('reg-nome').value.trim();
+  const nu=document.getElementById('reg-num').value.trim();
+  const dob=parseMozDate(document.getElementById('reg-dob').value);
+  if(!n||!nu){alert('Por favor preenche o Nome e Número M-Pesa!');return;}
+  if(!isVodacomPhone(nu)){alert('O número deve ser Vodacom e começar por 84 ou 85.');return;}
+  if(!dob.ok){alert(dob.msg);return;}
+  S.nome=n; S.num=formatPhone(nu);
+  S.email=document.getElementById('reg-email').value.trim();
+  S.dob=dob.value;
+  S.prov=document.getElementById('reg-prov').value;
+  S.lang='Português'; S.langCode='pt'; S.languageChosen=false;
+  S.themeMode='light'; S.themeChosen=false; S.xp=0; S.lvl=1; S.savings=0; S.missions_done=0; S.correct=0; S.total_q=0; S.badges=0;
+  S.doneMissions=new Set(); S.doneQuestions=new Set(); S.questionResults={}; S.missionResults={};
+  saveState();
+  go('s-avatar');
+}
+
+function doLogin(){
+  const n=document.getElementById('login-nome').value.trim();
+  const nu=document.getElementById('login-num').value.trim();
+  if(!n||!nu){alert('Por favor preenche o Nome e Número de Celular!');return;}
+  if(!isVodacomPhone(nu)){alert('O número deve ser Vodacom e começar por 84 ou 85.');return;}
+  S.nome=n; S.num=formatPhone(nu); saveState();
+  go('s-avatar');
+}
+
+/* ══════════════════════════════════════════════
+   AVATAR
+══════════════════════════════════════════════ */
+function pickChar(el,name,emoji,role){
+  document.querySelectorAll('.av-card').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  S.char=name; S.emoji=emoji; S.role=role;
+  const b=document.getElementById('av-btn');
+  b.style.opacity='1'; b.style.pointerEvents='auto';
+  b.textContent=`Começar como ${name} →`;
+}
+function startGame(){
+  if(!S.char) return;
+  S.savings=0; S.lvl=1; S.xp=0;
+  S.missions_done=0; S.correct=0; S.total_q=0; S.badges=0;
+  S.doneMissions=new Set(); S.doneQuestions=new Set(); S.questionResults={}; S.missionResults={};
+  saveState();
+  nav('s-dash');
+}
+
+/* ══════════════════════════════════════════════
+   DASHBOARD RENDER
+══════════════════════════════════════════════ */
+function renderDash(){
+  const name=S.nome||S.char;
+  document.getElementById('dash-name').textContent=name.split(' ')[0];
+  document.getElementById('d-sav').textContent=S.savings.toLocaleString()+' MT';
+  const lvlName2=lvlName(S.lvl);
+  document.getElementById('d-lvl').textContent=S.lvl+'/10';
+  document.getElementById('d-lvl-hint').textContent=txt(lvlName2);
+  document.getElementById('d-xp').textContent=S.xp;
+  // mission of day
+  const mis=MISSIONS[S.char]||MISSIONS.Ana;
+  const idx=S.missions_done%mis.length;
+  const m=mis[idx];
+  document.getElementById('d-mis-ic').textContent=m.ic;
+  document.getElementById('d-mis-t').textContent=txt(m.t);
+  document.getElementById('d-mis-s').textContent=txt(m.s);
+  document.getElementById('d-mis-xp').textContent='+'+m.xp+' XP';
+  // academia hint
+  const qs=Object.keys(AC_Q[S.char]||AC_Q.Ana);
+  document.getElementById('d-ac-t').textContent=txt(`Aprender sobre: ${qs[Math.floor(Math.random()*qs.length)]}`);
+  // xitique
+  document.getElementById('d-xi-name').textContent='Xitique';
+  const amt=XI_AMOUNTS[S.char]||500;
+  const cyc=XI_CYCLES[S.char]||8;
+  const turn=XI_TURNS[S.char]||5;
+  const total=amt*cyc;
+  document.getElementById('d-xi-amt').textContent=(total).toLocaleString()+' MT';
+  document.getElementById('d-xi-sub').textContent=txt('🔒 Bloqueado até fim do ciclo');
+  document.getElementById('d-xi-prog').style.width=Math.round((turn/cyc)*100)+'%';
+  document.getElementById('d-xi-turn').textContent=txt(`Turno ${turn} de ${cyc}`);
+  // members
+  const mbs=XI_MEMBERS[S.char]||XI_MEMBERS.Ana;
+  const mr=document.getElementById('d-mbr-row');
+  mr.innerHTML=mbs.slice(0,4).map(m=>`<div class="mbr">${m.em}</div>`).join('')+`<span style="font-size:11px;color:rgba(255,255,255,.35);margin-left:8px;">${txt('+'+Math.max(0,mbs.length-4)+' membros')}</span>`;
+}
+
+/* ══════════════════════════════════════════════
+   MISSIONS RENDER
+══════════════════════════════════════════════ */
+function renderMissions(){
+  const mis=MISSIONS[S.char]||MISSIONS.Ana;
+  document.getElementById('mis-sub').textContent=txt(`Missões de ${S.char} · Nível ${S.lvl}`);
+  const ul=document.getElementById('mis-list');
+  const ordered=mis.map((m,i)=>({m,i,done:S.doneMissions.has(i)})).sort((a,b)=>Number(a.done)-Number(b.done));
+  ul.innerHTML=ordered.map(({m,i,done})=>{
+    const res=S.missionResults[i];
+    return `<div class="mi${done?' done':''}" onclick="doMission(${i})"><div class="mi-ic">${m.ic}</div><div class="mi-body"><div class="mi-t">${txt(m.t)}</div><div class="mi-s">${txt(m.s)}</div><div class="mi-foot"><div class="mi-xp">${done?(res?.type==='best'?'? Certa':'Rev\u00ea a resposta'):'+'+m.xp+' XP'}</div><div class="mi-diff">${txt(m.diff)}</div><div class="mi-done-badge">${res?.type==='best'?'? Completo':'?? Completo'}</div></div></div></div>`;
+  }).join('');
+}
+
+/* ══════════════════════════════════════════════
+   MISSION QUIZ
+══════════════════════════════════════════════ */
+let activeMissionIdx=-1;
+let mQuizAnswered=false;
+
+function doMission(idx){
+  activeMissionIdx=idx;
+  mQuizAnswered=S.doneMissions.has(idx);
+  renderMissionQuiz();
+  go('s-quiz');
+}
+
+function renderMissionQuiz(){
+  const m=MISSIONS[S.char][activeMissionIdx];
+  document.getElementById('qprog').style.width='50%';
+  document.getElementById('qctr').textContent=txt('Missão · Responde');
+  const body=document.getElementById('quiz-body');
+  body.innerHTML=`
+    <div class="quiz-scen">
+      <div class="quiz-av-line"><span class="quiz-av-em">${S.emoji}</span><span class="quiz-av-name">${S.char} · ${txt(m.t)}</span></div>
+      <div style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.6;margin-bottom:10px;">${missionContextText(m)}</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.5);font-style:italic;border-left:3px solid rgba(226,0,26,.5);padding-left:10px;">${missionQuoteText(m)}</div>
+    </div>
+    <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1.5px;">${txt('Qual é a tua decisão?')}</div>
+    ${shuffle(m.choices.map((c,i)=>({...c,orig:i}))).map((c,i)=>`<button class="choice" id="mc${c.orig}" onclick="answerMission(${activeMissionIdx},${c.orig})"><span class="choice-em">${c.em}</span><span class="choice-t">${choiceText(c)}</span></button>`).join('')}
+    <div class="after-panel" id="after-m"></div>
+  `;
+  if(mQuizAnswered && S.missionResults[activeMissionIdx]) answerMission(activeMissionIdx,S.missionResults[activeMissionIdx].choice);
+}
+
+function answerMission(mIdx,cIdx){
+  if(mQuizAnswered && !S.missionResults[mIdx]) return;
+  const reviewing=!!S.missionResults[mIdx];
+  mQuizAnswered=true;
+  const m=MISSIONS[S.char][mIdx];
+  const c=m.choices[cIdx];
+  // disable all
+  m.choices.forEach((_,i)=>{const btn=document.getElementById('mc'+i); btn.onclick=null; btn.disabled=true; btn.style.pointerEvents='none';});
+  // highlight
+  const typeMap={best:'c-best',mid:'c-mid',bad:'c-bad'};
+  document.getElementById('mc'+cIdx).classList.add(typeMap[c.type]||'c-bad');
+  if(c.type!=='best'){
+    // show best
+    m.choices.forEach((ch,i)=>{if(ch.type==='best') document.getElementById('mc'+i).classList.add('c-best');});
+  }
+  // effects
+  if(!reviewing){
+    if(c.type==='best'){launchConfetti(); gainXP(c.xp,true);}
+    else if(c.type==='mid'){gainXP(c.xp,false);}
+    else{flashWrong();}
+  }
+  // mark done
+  if(!reviewing){S.doneMissions.add(mIdx); S.missionResults[mIdx]={type:c.type,choice:cIdx}; saveState();}
+  // after panel
+  const ap=document.getElementById('after-m');
+  ap.classList.add('show');
+  ap.innerHTML=`
+    <div class="after-tip-lbl">💡 Dica</div>
+    <div class="after-tip-txt">${feedbackText(m.choices.find(x=>x.type==='best').tip,c.type)}</div>
+    <div class="after-xp">${reviewing?'Resposta revista':(c.xp>0?`+<span>${c.xp} XP</span> ganhos`:'Sem XP desta vez')}</div>
+    <div class="after-btns">
+      <button class="ab-btn ab-home" onclick="nav('s-dash')">🏠 Início</button>
+      <button class="ab-btn ab-next" onclick="nextMission()">Próxima missão →</button>
+    </div>
+  `;
+  applyLanguage();
+}
+
+/* ══════════════════════════════════════════════
+   XITIQUE RENDER
+══════════════════════════════════════════════ */
+function renderXitique(){
+  const mbs=XI_MEMBERS[S.char]||XI_MEMBERS.Ana;
+  const amt=XI_AMOUNTS[S.char]||500;
+  const cyc=XI_CYCLES[S.char]||8;
+  const turn=XI_TURNS[S.char]||5;
+  const total=amt*mbs.length;
+  const pct=Math.round((turn/cyc)*100);
+  const nextMbr=mbs.find(m=>m.st==='next');
+  const body=document.getElementById('xi-body');
+  body.innerHTML=`
+    <div class="xi-total">
+      <div class="xi-total-lbl">💰 Total Acumulado</div>
+      <div class="xi-total-amt">${total.toLocaleString()} MT</div>
+      <div class="xi-total-sub">${mbs.length} membros × ${amt} MT × ${turn} turnos</div>
+      <div class="xi-lock">🔒 Bloqueado até fim do ciclo${nextMbr?` · Turno de ${nextMbr.n.split(' ')[0]}`:''}</div>
+    </div>
+    <div class="xi-info"><span style="font-size:20px;">ℹ️</span><p>O valor fica <strong>bloqueado</strong> até ao fim do ciclo para proteger todos os membros. Só o beneficiário do turno pode levantar.</p></div>
+    <div class="xi-gbox">
+      <div class="xi-gtitle">Xitique</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.4);margin-bottom:10px;">${amt} MT/mês · ${mbs.length} membros · Turno ${turn}/${cyc}</div>
+      <div class="xi-prog2"><div class="xi-pf2" style="width:${pct}%"></div></div>
+      <div style="font-size:11px;color:rgba(255,255,255,.35);text-align:right;margin-top:5px;margin-bottom:12px;">${turn}/${cyc} turnos</div>
+      ${mbs.map(m=>{
+        const bdgMap={paid:'bdg-paid',late:'bdg-late',next:'bdg-nxt',wait:'bdg-wait'};
+        const stMap={paid:'✓ Pagamentos em dia',late:`⚠️ Atraso ${m.late||1} mês(es)`,next:'→ Próximo beneficiário',wait:'Aguarda turno'};
+        const stColor={paid:'paid',late:'late',next:'nxt',wait:''};
+        const bdgLabel={paid:'Pago',late:'Atraso',next:'Próximo',wait:'Aguarda'};
+        return `<div class="xi-mr">
+          <div class="xi-mr-em">${m.em}</div>
+          <div class="xi-mr-info">
+            <div class="xi-mr-name">${m.n}</div>
+            <div class="xi-mr-amt">${m.recv?amt+' MT recebido':amt+' MT contribuído'}</div>
+            <div class="xi-mr-st ${stColor[m.st]||''}">${stMap[m.st]||''}</div>
+          </div>
+          <div class="bdg ${bdgMap[m.st]||'bdg-wait'}">${bdgLabel[m.st]||'—'}</div>
+        </div>`;
+      }).join('')}
+    </div>
+    <button class="btn-r" onclick="alert('💚 Contribuição de ${amt} MT via M-Pesa processada!\\n\\nComprovativo enviado por SMS. ✅')" style="margin-bottom:4px;">💚 Contribuir via M-Pesa — ${amt} MT</button>
+  `;
+}
+
+/* ══════════════════════════════════════════════
+   ACADEMIA RENDER
+══════════════════════════════════════════════ */
+function renderAcademia(){
+  const charQ=AC_Q[S.char]||AC_Q.Ana;
+  const themes=Object.keys(charQ);
+  document.getElementById('ac-sub').textContent=txt(`Lições para ${S.char} · ${S.char==='Ana'?'Vendedora':S.char==='Carlos'?'Motorista':S.char==='Fátima'?'Estudante':'Agricultor'}`);
+  // build theme buttons
+  const tr=document.getElementById('theme-row');
+  tr.innerHTML=['Aleatório',...themes].map(t=>`<button class="tbtn${S.currentTheme===t||(!S.currentTheme&&t==='Aleatório')?' sel':''}" onclick="filterTheme(this,'${t}')">${txt(t)}</button>`).join('');
+  // build question list
+  renderQList();
+}
+
+function filterTheme(el,theme){
+  document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');
+  S.currentTheme=theme;
+  renderQList();
+}
+
+let acPool={};
+function renderQList(){
+  const charQ=AC_Q[S.char]||AC_Q.Ana;
+  const themes=Object.keys(charQ);
+  let questions=[];
+  if(S.currentTheme==='Aleatório'||!S.currentTheme){
+    themes.forEach(t=>charQ[t].forEach((q,i)=>questions.push({...q,theme:t,gid:t+'_'+i})));
+  } else {
+    (charQ[S.currentTheme]||[]).forEach((q,i)=>questions.push({...q,theme:S.currentTheme,gid:S.currentTheme+'_'+i}));
+  }
+  questions=shuffle(questions).sort((a,b)=>Number(S.doneQuestions.has(a.gid))-Number(S.doneQuestions.has(b.gid))); acPool={}; questions.forEach(q=>{acPool[q.gid]=q;});
+  const list=document.getElementById('qlist');
+  list.innerHTML=questions.map(q=>{
+    const done=S.doneQuestions.has(q.gid);
+    const xpBest=q.choices.find(c=>c.type==='best')?.xp||40;
+    return `<div class="qcard${done?' done':''}" onclick="startAcQ('${q.gid}')">
+      <div class="qcard-theme">${txt(q.theme)}${done?' · ✅ '+txt('Completo'):''}</div>
+      <div class="qcard-q">${challengeText(q)}</div>
+      <div class="qcard-foot">
+        <div class="qcard-xp">+${xpBest} XP</div>
+        <div class="qcard-done-badge">✅ ${txt('Respondida')}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ══════════════════════════════════════════════
+   ACADEMIA QUIZ
+══════════════════════════════════════════════ */
+let activeQGid='';
+let acAnswered=false;
+
+function startAcQ(gid){
+  activeQGid=gid;
+  acAnswered=S.doneQuestions.has(gid);
+  renderAcQuiz();
+  go('s-quiz');
+}
+
+function renderAcQuiz(){
+  const q=acPool[activeQGid];
+  if(!q) return;
+  document.getElementById('qprog').style.width='60%';
+  document.getElementById('qctr').textContent=txt('Academia · '+q.theme);
+  const body=document.getElementById('quiz-body');
+  body.innerHTML=`
+    <div class="quiz-scen">
+      <div class="quiz-av-line"><span class="quiz-av-em">${S.emoji}</span><span class="quiz-av-name">${S.char} · ${txt(q.theme)}</span></div>
+      <div class="quiz-q">${challengeText(q)}</div>
+    </div>
+    <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1.5px;">${txt('Escolhe a melhor resposta:')}</div>
+    ${shuffle(q.choices.map((c,i)=>({...c,orig:i}))).map((c,i)=>`<button class="choice" id="ac${c.orig}" onclick="answerAcQ(${c.orig})"><span class="choice-em">${c.em}</span><span class="choice-t">${choiceText(c)}</span></button>`).join('')}
+    <div class="after-panel" id="after-ac"></div>
+  `;
+  if(acAnswered && S.questionResults[activeQGid]) answerAcQ(S.questionResults[activeQGid].choice);
+}
+
+function answerAcQ(cIdx){
+  if(acAnswered && !S.questionResults[activeQGid]) return;
+  const reviewing=!!S.questionResults[activeQGid];
+  acAnswered=true;
+  const q=acPool[activeQGid];
+  const c=q.choices[cIdx];
+  q.choices.forEach((_,i)=>{const btn=document.getElementById('ac'+i); btn.onclick=null; btn.disabled=true; btn.style.pointerEvents='none';});
+  const typeMap={best:'c-best',mid:'c-mid',bad:'c-bad'};
+  document.getElementById('ac'+cIdx).classList.add(typeMap[c.type]||'c-bad');
+  if(c.type!=='best') q.choices.forEach((ch,i)=>{if(ch.type==='best') document.getElementById('ac'+i).classList.add('c-best');});
+  if(!reviewing){
+    if(c.type==='best'){launchConfetti(); gainXP(c.xp,true);}
+    else if(c.type==='mid'){gainXP(c.xp,false);}
+    else{flashWrong();}
+  }
+  // mark done
+  if(!reviewing){S.doneQuestions.add(activeQGid); S.questionResults[activeQGid]={type:c.type,choice:cIdx};
+  S.total_q++; if(c.type==='best') S.correct++; saveState();}
+  const ap=document.getElementById('after-ac');
+  ap.classList.add('show');
+  const bestTip=q.tip||'';
+  const bestChoice=q.choices.find(x=>x.type==='best');
+  ap.innerHTML=`
+    <div class="after-tip-lbl">💡 ${c.type==='best'?'Excelente!':c.type==='mid'?'Quase lá!':'Resposta Errada'}</div>
+    <div class="after-tip-txt">${feedbackText(bestTip,c.type)}</div>
+    ${c.type!=='best'?`<div class="after-best"><strong>✅ Melhor resposta:</strong> ${choiceText(bestChoice||{})}</div>`:''}
+    <div class="after-xp">${reviewing?'Resposta revista':(c.xp>0?`+<span>${c.xp} XP</span> ganhos`:'Sem XP desta vez')}</div>
+    <div class="after-btns">
+      <button class="ab-btn ab-home" onclick="nav('s-dash')">🏠 Início</button>
+      <button class="ab-btn ab-next" onclick="nextAcademiaQuestion()">Próxima pergunta →</button>
+    </div>
+  `;
+  applyLanguage();
+}
+
+/* ══════════════════════════════════════════════
+   XP + LEVEL SYSTEM
+══════════════════════════════════════════════ */
+function gainXP(amount,isBest){
+  if(amount<=0) return;
+  const oldLvl=S.lvl;
+  S.xp+=amount;
+  S.savings+=Math.round(amount*10);
+  if(isBest){S.missions_done++; S.badges=Math.floor(S.missions_done/3);}
+  S.lvl=xpToLevel(S.xp);
+  if(S.lvl>oldLvl) setTimeout(showLvlUp,800);
+  updateDashStats();
+}
+
+function updateDashStats(){
+  document.getElementById('d-sav').textContent=S.savings.toLocaleString()+' MT';
+  document.getElementById('d-lvl').textContent=S.lvl+'/10';
+  document.getElementById('d-lvl-hint').textContent=lvlName(S.lvl);
+  document.getElementById('d-xp').textContent=S.xp;
+}
+
+function showLvlUp(){
+  const el=document.getElementById('lvlup');
+  document.getElementById('lvlup-t').textContent='Nível '+S.lvl+'!';
+  document.getElementById('lvlup-s').textContent=`Tornaste-te ${lvlName(S.lvl)}!\nContinua a aprender!`;
+  el.classList.add('show');
+  launchConfetti();
+}
+function closeLvlup(){document.getElementById('lvlup').classList.remove('show');}
+
+/* ══════════════════════════════════════════════
+   PROFILE
+══════════════════════════════════════════════ */
+function renderProfile(){
+  document.getElementById('prof-av').textContent=S.emoji||'👤';
+  document.getElementById('prof-name').textContent=S.nome||S.char;
+  document.getElementById('prof-num').textContent=S.num||'+258 84 000 0000';
+  document.getElementById('prof-lvl').textContent=txt(`⭐ Nível ${S.lvl} · ${S.xp} XP · ${lvlName(S.lvl)}`);
+  document.getElementById('p-nome').textContent=S.nome||'—';
+  document.getElementById('p-num').textContent=S.num||'—';
+  document.getElementById('p-email').textContent=S.email||'—';
+  document.getElementById('p-dob').textContent=S.dob||'—';
+  document.getElementById('p-prov').textContent=S.prov||'—';
+  document.getElementById('p-lang').textContent=S.langCode==='en'?'English':'Português';
+  document.getElementById('p-sav').textContent=S.savings.toLocaleString()+' MT';
+  document.getElementById('ps-mis').textContent=S.missions_done;
+  document.getElementById('ps-xp').textContent=S.xp;
+  document.getElementById('ps-bdg').textContent=S.badges;
+  document.getElementById('p-bdg').textContent=txt(S.badges+' badges conquistados');
+  const pct=S.total_q>0?Math.round((S.correct/S.total_q)*100):0;
+  document.getElementById('p-stats').textContent=txt(`${S.missions_done} missões · ${pct}% acertos`);
+  document.getElementById('p-char-ic').textContent=S.emoji||'👤';
+  document.getElementById('p-char-name').textContent=S.char||'—';
+  document.getElementById('p-char-role').textContent=txt(S.role||'—');
+  document.getElementById('p-lvl-desc').textContent=txt(`${S.lvl}/10 · ${lvlName(S.lvl)} · ${S.xp} XP`);
+  applyLanguage();
+}
+
+function editField(field){
+  const labels={nome:'Nome Completo',num:'Número M-Pesa',email:'Email',dob:'Data de Nascimento',prov:'Província',lang:'Idioma'};
+  const curr={nome:S.nome,num:S.num,email:S.email,dob:S.dob,prov:S.prov,lang:S.lang};
+  if(field==='dob'){pickDateWithCalendar();return;}
+  const hints={email:'Coloca ou actualiza o teu email:',prov:'Escolhe a província: Maputo, Gaza, Inhambane, Sofala, Manica, Tete, Zambézia, Nampula, Niassa ou Cabo Delgado.'};
+  const val=prompt(hints[field]||`Alterar ${labels[field]}:`,curr[field]||'');
+  if(val===null) return;
+  const clean=val.trim();
+  if(clean===''){
+    if(['email','dob','prov'].includes(field)){S[field]='';saveState();renderProfile();}
+    return;
+  }
+  if(field==='num'){
+    if(!isVodacomPhone(clean)){alert('O número deve ser Vodacom e começar por 84 ou 85.');return;}
+    S.num=formatPhone(clean);
+  } else if(field==='email'){
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clean)){alert('Email inválido. Exemplo: nome@email.com');return;}
+    S.email=clean;
+  } else if(field==='dob'){
+    const dob=parseMozDate(clean);
+    if(!dob.ok){alert(dob.msg);return;}
+    S.dob=dob.value;
+  } else if(field==='prov'){
+    const provinces=['Maputo','Gaza','Inhambane','Sofala','Manica','Tete','Zambézia','Nampula','Niassa','Cabo Delgado'];
+    const found=provinces.find(p=>p.toLowerCase()===clean.toLowerCase());
+    if(!found){alert('Província inválida. Escolhe uma província de Moçambique.');return;}
+    S.prov=found;
+  } else {
+    S[field]=clean;
+  }
+  saveState();renderProfile();
+}
+
+function earnedBadgeList(){
+  const candidates=[
+    {at:1,name:'Primeira Resposta',desc:'Respondeste ao primeiro desafio.'},
+    {at:3,name:'Poupa Esperto',desc:'Completaste 3 respostas correctas.'},
+    {at:6,name:'Guardião do PIN',desc:'Mostraste bons hábitos de segurança.'},
+    {at:9,name:'Mestre do Xitique',desc:'Avançaste nas missões de poupança em grupo.'}
+  ];
+  return candidates.filter((_,i)=>i<S.badges);
+}
+function showBadges(){
+  const list=earnedBadgeList();
+  if(!list.length){alert(txt('Ainda não conquistaste badges. Responde correctamente às missões e perguntas da Academia para desbloquear conquistas.'));return;}
+  alert(txt('Badges conquistados:')+'\n\n'+list.map(b=>'🏆 '+txt(b.name)+' — '+txt(b.desc)).join('\n'));
+}
+function showStats(){
+  const wrong=Math.max(0,S.total_q-S.correct);
+  const pct=S.total_q>0?Math.round((S.correct/S.total_q)*100):0;
+  alert(txt('Estatísticas')+'\n\n'+txt('Acertos')+': '+S.correct+'\n'+txt('Errados')+': '+wrong+'\n'+txt('Total respondido')+': '+S.total_q+'\n'+txt('Taxa de acerto')+': '+pct+'%');
+}
+
+/* ══════════════════════════════════════════════
+   EFFECTS
+══════════════════════════════════════════════ */
+function launchConfetti(){
+  const c=document.getElementById('confetti-c');
+  const cols=['#E2001A','#F5A623','#00A651','#FFD166','#FF6B6B','#66FFB2','#fff','#FF9F43'];
+  for(let i=0;i<55;i++){
+    const p=document.createElement('div');
+    p.className='cp';
+    const size=6+Math.random()*8;
+    p.style.cssText=`left:${Math.random()*100}%;top:-10px;background:${cols[Math.floor(Math.random()*cols.length)]};width:${size}px;height:${size}px;border-radius:${Math.random()>.5?'50%':'2px'};animation-duration:${1.5+Math.random()*2}s;animation-delay:${Math.random()*.5}s;`;
+    c.appendChild(p);
+    setTimeout(()=>p.remove(),3000);
+  }
+}
+function flashWrong(){
+  const f=document.getElementById('wflash');
+  f.style.display='block';
+  setTimeout(()=>{f.style.display='none';},480);
+}
+
+/* init - start at splash */
+loadState();
+applyTheme();
+go('s-splash');
+applyLanguage();
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
